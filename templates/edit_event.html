@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Event - Community Event Planner{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Edit Event</h1>
+    <form method="POST">
+        <div class="form-group mb-3">
+            <label for="name">Event Name:</label>
+            <input type="text" id="name" name="name" value="{{ event.name }}" class="form-control" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" class="form-control" required>{{ event.description }}</textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" value="{{ event.location }}" class="form-control" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" value="{{ event.date }}" class="form-control" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="category_id">Category:</label>
+            <select id="category_id" name="category_id" class="form-control">
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id == event.category_id %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Update Event</button>
+    </form>
+{% endblock %}

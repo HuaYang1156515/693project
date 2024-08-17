@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Event Details - Community Event Planner{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">{{ event.name }}</h1>
+            <p class="card-text">{{ event.description }}</p>
+            <p><strong>Date:</strong> {{ event.date }}</p>
+            <p><strong>Location:</strong> {{ event.location }}</p>
+
+            {% if current_user.is_authenticated %}
+                <!-- Form for registering for the event -->
+                <form action="{{ url_for('event_bp.register_event', event_id=event.id) }}" method="POST">
+                    <!-- Button to submit the form -->
+                    <button type="submit" class="btn btn-primary">Register for this Event</button>
+                </form>
+            {% else %}
+                <!-- Link to the login page if the user is not logged in -->
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">
+                    Login to Register
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
