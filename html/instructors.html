@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Worldcourse - Free Online Course HTML Website Template</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+</head>
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css" />
+
+<link rel="stylesheet" type="text/css" href="icomoon/icomoon.css">
+
+<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="css/vendor.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&family=Roboto+Slab&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol xmlns="http://www.w3.org/2000/svg" id="facebook" viewBox="0 0 24 24">
+            <path fill="currentColor"
+                d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5Z" />
+        </symbol>
+        <symbol xmlns="http://www.w3.org/2000/svg" id="youtube" viewBox="0 0 32 32" width="20" height="20">
+            <path fill="currentColor"
+                d="M29.41 9.26a3.5 3.5 0 0 0-2.47-2.47C24.76 6.2 16 6.2 16 6.2s-8.76 0-10.94.59a3.5 3.5 0 0 0-2.47 2.47A36.13 36.13 0 0 0 2 16a36.13 36.13 0 0 0 .59 6.74a3.5 3.5 0 0 0 2.47 2.47c2.18.59 10.94.59 10.94.59s8.76 0 10.94-.59a3.5 3.5 0 0 0 2.47-2.47A36.13 36.13 0 0 0 30 16a36.13 36.13 0 0 0-.59-6.74ZM13.2 20.2v-8.4l7.27 4.2Z" />
+        </symbol>
+        <symbol xmlns="http://www.w3.org/2000/svg" id="instagram" viewBox="0 0 256 256" width="20" height="20">
+            <path fill="currentColor"
+                d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z" />
+        </symbol>
+        <symbol xmlns="http://www.w3.org/2000/svg" id="twitter" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor"
+                d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23Z" />
+        </symbol>
+        <symbol xmlns="http://www.w3.org/2000/svg" id="linkedin" viewBox="0 0 512 512" width="20" height="20">
+            <path fill="currentColor"
+                d="M444.17 32H70.28C49.85 32 32 46.7 32 66.89v374.72C32 461.91 49.85 480 70.28 480h373.78c20.54 0 35.94-18.21 35.94-38.39V66.89C480.12 46.7 464.6 32 444.17 32Zm-273.3 373.43h-64.18V205.88h64.18ZM141 175.54h-.46c-20.54 0-33.84-15.29-33.84-34.43c0-19.49 13.65-34.42 34.65-34.42s33.85 14.82 34.31 34.42c-.01 19.14-13.31 34.43-34.66 34.43Zm264.43 229.89h-64.18V296.32c0-26.14-9.34-44-32.56-44c-17.74 0-28.24 12-32.91 23.69c-1.75 4.2-2.22 9.92-2.22 15.76v113.66h-64.18V205.88h64.18v27.77c9.34-13.3 23.93-32.44 57.88-32.44c42.13 0 74 27.77 74 87.64Z" />
+        </symbol>
+        <symbol xmlns="http://www.w3.org/2000/svg" id="navbar-icon" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+        </symbol>
+        <symbol xmlns="http://www.w3.org/2000/svg" id="icon-arrow-left" viewBox="0 0 15 15">
+            <path fill="currentColor" fill-rule="evenodd"
+                d="m2.707 8l3.147 3.146l-.708.707L.793 7.5l4.353-4.354l.708.708L2.707 7H14v1H2.707Z"
+                clip-rule="evenodd" />
+        </symbol>
+        <symbol xmlns="http://www.w3.org/2000/svg" id="icon-arrow-right" viewBox="0 0 15 15">
+            <path fill="currentColor" fill-rule="evenodd"
+                d="M9.854 3.146L14.207 7.5l-4.353 4.354l-.708-.708L12.293 8H1V7h11.293L9.146 3.854l.708-.708Z"
+                clip-rule="evenodd" />
+        </symbol>
+    </svg>
+
+    <div class="preloader-wrapper">
+        <div class="preloader">
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart"
+        aria-labelledby="My Cart">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-4">
+                    <span>Your <span class="text-primary"> cart</span></span>
+                    <span class="badge bg-primary rounded-circle pt-2 text-dark">3</span>
+                </h4>
+
+                <ul class="list-group mb-4">
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3 lh-sm">
+                        <div>
+                            <h6 class="my-0">Marketing Course</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$120</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3 lh-sm">
+                        <div>
+                            <h6 class="my-0">Strategy Course</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$80</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3 lh-sm">
+                        <div>
+                            <h6 class="my-0">Digital Course</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$50</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                        <span class="fw-bold">Total (USD)</span>
+                        <strong>$250</strong>
+                    </li>
+                </ul>
+
+                <div class="d-grid my-5">
+                    <button class="btn btn-primary px-5 py-3" type="submit">Continue to checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="main-menu d-flex navbar fixed-top navbar-expand-lg p-2 py-3 p-lg-4 py-lg-4 ">
+        <div class="container-fluid">
+            <div class="main-logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="logo" class="img-fluid">
+                </a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+
+                <div class="offcanvas-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body justify-content-end">
+
+                    <ul class="navbar-nav menu-list list-unstyled align-items-lg-center d-flex gap-md-3 mb-0">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link mx-2">Home</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="pages"
+                                data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+                            <ul class="dropdown-menu" aria-labelledby="pages">
+                                <li><a href="about.html" class="dropdown-item">About Us</a></li>
+                                <li><a href="instructors.html" class="dropdown-item">Instructors</a></li>
+                                <li><a href="cart.html" class="dropdown-item">Cart</a></li>
+                                <li><a href="wishlist.html" class="dropdown-item">Wishlist</a></li>
+                                <li><a href="checkout.html" class="dropdown-item">Checkout</a></li>
+                                <li><a href="price-plan.html" class="dropdown-item">Price Plan</a></li>
+                                <li><a href="contact.html" class="dropdown-item">Contact</a></li>
+                                <li><a href="faqs.html" class="dropdown-item">FAQs</a></li>
+                                <li><a href="account.html" class="dropdown-item">Account</a></li>
+                                <li><a href="thank-you.html" class="dropdown-item">Thankyou</a></li>
+                                <li><a href="error.html" class="dropdown-item">Error 404</a></li>
+                                <li><a href="styles.html" class="dropdown-item">Styles</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="courses"
+                                data-bs-toggle="dropdown" aria-expanded="false">Courses</a>
+                            <ul class="dropdown-menu" aria-labelledby="courses">
+                                <li><a href="courses.html" class="dropdown-item">Course</a></li>
+                                <li><a href="courses-details.html" class="dropdown-item">Courses Detail</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="events"
+                                data-bs-toggle="dropdown" aria-expanded="false">events</a>
+                            <ul class="dropdown-menu" aria-labelledby="courses">
+                                <li><a href="event.html" class="dropdown-item">event</a></li>
+                                <li><a href="event-details.html" class="dropdown-item">event details</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="blog"
+                                data-bs-toggle="dropdown" aria-expanded="false">blog</a>
+                            <ul class="dropdown-menu" aria-labelledby="blog">
+                                <li><a href="blog.html" class="dropdown-item">blog</a></li>
+                                <li><a href="single-post.html" class="dropdown-item">single post</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="shop"
+                                data-bs-toggle="dropdown" aria-expanded="false">shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="shop">
+                                <li><a href="shop.html" class="dropdown-item">Shop</a></li>
+                                <li><a href="single-product.html" class="dropdown-item">Single Product</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="contact.html" class="nav-link mx-2">contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link mx-2 text-decoration-underline">Button</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-none d-lg-flex align-items-center ms-5">
+                        <ul class="d-flex justify-content-end  list-unstyled m-0">
+                            <li>
+                                <a class="btn btn-outline-dark mx-3 p-3" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">Login/Signup</a>
+                            </li>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="tabs-listing mt-4">
+                                                <nav>
+                                                    <div class="nav nav-tabs d-flex justify-content-center border-0"
+                                                        id="nav-tab" role="tablist">
+                                                        <button class="btn btn-outline-primary px-5 py-3 me-3 active"
+                                                            id="nav-sign-in-tab" data-bs-toggle="tab"
+                                                            data-bs-target="#nav-sign-in" type="button" role="tab"
+                                                            aria-controls="nav-sign-in" aria-selected="true">Log
+                                                            In</button>
+                                                        <button class="btn btn-outline-primary px-5 py-3"
+                                                            id="nav-register-tab" data-bs-toggle="tab"
+                                                            data-bs-target="#nav-register" type="button" role="tab"
+                                                            aria-controls="nav-register" aria-selected="false">Sign
+                                                            Up</button>
+                                                    </div>
+                                                </nav>
+                                                <div class="tab-content" id="nav-tabContent">
+                                                    <div class="tab-pane fade active show" id="nav-sign-in"
+                                                        role="tabpanel" aria-labelledby="nav-sign-in-tab">
+                                                        <form id="form1" class="form-group flex-wrap p-3 ">
+                                                            <div class="form-input col-lg-12 my-4">
+                                                                <label for="exampleInputEmail1"
+                                                                    class="form-label fs-6 text-uppercase fw-bold text-black">Email
+                                                                    Address</label>
+                                                                <input type="text" id="exampleInputEmail1" name="email"
+                                                                    placeholder="Email" class="form-control ps-3">
+                                                            </div>
+                                                            <div class="form-input col-lg-12 my-4">
+                                                                <label for="inputPassword1"
+                                                                    class="form-label  fs-6 text-uppercase fw-bold text-black">Password</label>
+                                                                <input type="password" id="inputPassword1"
+                                                                    placeholder="Password" class="form-control ps-3"
+                                                                    aria-describedby="passwordHelpBlock">
+                                                                <div id="passwordHelpBlock"
+                                                                    class="form-text text-center">
+                                                                    <a href="#" class=" password">Forgot Password ?</a>
+                                                                </div>
+
+                                                            </div>
+                                                            <label class="py-3">
+                                                                <input type="checkbox" required="" class="d-inline">
+                                                                <span class="label-body text-black">Remember Me</span>
+                                                            </label>
+                                                            <div class="d-grid my-3">
+                                                                <button class="btn btn-primary px-5 py-3">Log
+                                                                    In</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="nav-register" role="tabpanel"
+                                                        aria-labelledby="nav-register-tab">
+                                                        <form id="form2" class="form-group flex-wrap p-3 ">
+                                                            <div class="form-input col-lg-12 my-4">
+                                                                <label for="exampleInputEmail2"
+                                                                    class="form-label fs-6 text-uppercase fw-bold text-black">Email
+                                                                    Address</label>
+                                                                <input type="text" id="exampleInputEmail2" name="email"
+                                                                    placeholder="Email" class="form-control ps-3">
+                                                            </div>
+                                                            <div class="form-input col-lg-12 my-4">
+                                                                <label for="inputPassword2"
+                                                                    class="form-label  fs-6 text-uppercase fw-bold text-black">Password</label>
+                                                                <input type="password" id="inputPassword2"
+                                                                    placeholder="Password" class="form-control ps-3"
+                                                                    aria-describedby="passwordHelpBlock">
+                                                            </div>
+                                                            <label class="py-3">
+                                                                <input type="checkbox" required="" class="d-inline">
+                                                                <span class="label-body text-black">I agree to the <a
+                                                                        href="#"
+                                                                        class="text-black password border-bottom">Privacy
+                                                                        Policy</a>
+                                                                </span>
+                                                            </label>
+                                                            <div class="d-grid my-3">
+                                                                <button class="btn btn-primary px-5 py-3">Sign
+                                                                    Up</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <li class="align-self-end">
+                                <a href="#" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+                                    aria-controls="offcanvasCart">
+                                    <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
+                                    <span
+                                        class="position-absolute text-black translate-middle badge rounded-circle bg-primary">
+                                        03
+                                    </span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid d-lg-none">
+            <div class="d-flex  align-items-end mt-3">
+                <ul class="d-flex justify-content-end list-unstyled m-0">
+                    <li>
+                        <a href="account.html" class="me-4">
+                            <iconify-icon icon="healthicons:person" class="fs-4 me-2"></iconify-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="wishlist.html" class="me-4">
+                            <iconify-icon icon="mdi:heart" class="fs-4 me-2"></iconify-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="me-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+                            aria-controls="offcanvasCart">
+                            <iconify-icon icon="mdi:cart" class="fs-4 me-2 position-relative"></iconify-icon>
+                            <span class="position-absolute translate-middle badge rounded-circle bg-primary text-black">
+                                03
+                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <section id="banner" style="background-image:url(images/background-img.jpg);">
+        <div class="container padding-medium-2">
+            <div class="hero-content ">
+                <h2 class="display-2 fw-semibold">Course <span class="text-primary"> Instructors</span></h2>
+                <nav class="breadcrumb">
+                    <a class="breadcrumb-item text-muted nav-link" href="#">Home</a>
+                    <a class="breadcrumb-item text-muted nav-link" href="#">Pages</a>
+                    <span class="breadcrumb-item active" aria-current="page">insturctors</span>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <section id="instructors" class="padding-medium">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mt-5 ">
+                    <div class="team-member position-relative">
+                        <div class="image-holder zoom-effect">
+                            <img src="images/team1.jpg" alt="team member" class="img-fluid">
+                            <ul class="social-links list-unstyled position-absolute">
+                                <li>
+                                    <a href="#">
+                                        <svg class="facebook text-dark ms-2  my-2" width="25" height="25"
+                                            aria-hidden="true">
+                                            <use xlink:href="#facebook"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="twitter text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#twitter"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="instagram text-dark ms-2 " width="30" height="30"
+                                            aria-hidden="true">
+                                            <use xlink:href="#instagram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="linkedin text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#linkedin"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="member-info pt-4 ">
+                            <a href="#">
+                                <h3 class="fs-4 text-uppercase">Alex Smith</h3>
+                            </a>
+                            <span class="text-primary fs-6">Digital Marketer</span>
+                            <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, libero
+                                corrupti. Nemo quis sint commodi nulla praesentium recusandae molestiae, ducimus
+                                incidunt cupiditate ad autem aliquam quod consequatur non id! Tempora.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-5 ">
+                    <div class="team-member position-relative">
+                        <div class="image-holder zoom-effect">
+                            <img src="images/team4.jpg" alt="team member" class="img-fluid">
+                            <ul class="social-links list-unstyled position-absolute">
+                                <li>
+                                    <a href="#">
+                                        <svg class="facebook text-dark ms-2  my-2" width="25" height="25"
+                                            aria-hidden="true">
+                                            <use xlink:href="#facebook"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="twitter text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#twitter"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="instagram text-dark ms-2 " width="30" height="30"
+                                            aria-hidden="true">
+                                            <use xlink:href="#instagram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="linkedin text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#linkedin"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="member-info pt-4 ">
+                            <a href="#">
+                                <h3 class="fs-4 text-uppercase">Milly Taylor</h3>
+                            </a>
+                            <span class="text-primary fs-6">Sales Expert</span>
+                            <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, libero
+                                corrupti. Nemo quis sint commodi nulla praesentium recusandae molestiae, ducimus
+                                incidunt cupiditate ad autem aliquam quod consequatur non id! Tempora.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-5 ">
+                    <div class="team-member position-relative">
+                        <div class="image-holder zoom-effect">
+                            <img src="images/team5.jpg" alt="team member" class="img-fluid">
+                            <ul class="social-links list-unstyled position-absolute">
+                                <li>
+                                    <a href="#">
+                                        <svg class="facebook text-dark ms-2  my-2" width="25" height="25"
+                                            aria-hidden="true">
+                                            <use xlink:href="#facebook"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="twitter text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#twitter"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="instagram text-dark ms-2 " width="30" height="30"
+                                            aria-hidden="true">
+                                            <use xlink:href="#instagram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="linkedin text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#linkedin"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="member-info pt-4 ">
+                            <a href="#">
+                                <h3 class="fs-4 text-uppercase">Allena Will</h3>
+                            </a>
+                            <span class="text-primary fs-6">SEO Expert</span>
+                            <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, libero
+                                corrupti. Nemo quis sint commodi nulla praesentium recusandae molestiae, ducimus
+                                incidunt cupiditate ad autem aliquam quod consequatur non id! Tempora.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-5 ">
+                    <div class="team-member position-relative">
+                        <div class="image-holder zoom-effect">
+                            <img src="images/team2.jpg" alt="team member" class="img-fluid">
+                            <ul class="social-links list-unstyled position-absolute">
+                                <li>
+                                    <a href="#">
+                                        <svg class="facebook text-dark ms-2  my-2" width="25" height="25"
+                                            aria-hidden="true">
+                                            <use xlink:href="#facebook"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="twitter text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#twitter"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="instagram text-dark ms-2 " width="30" height="30"
+                                            aria-hidden="true">
+                                            <use xlink:href="#instagram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="linkedin text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#linkedin"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="member-info pt-4 ">
+                            <a href="#">
+                                <h3 class="fs-4 text-uppercase">David Saturn</h3>
+                            </a>
+                            <span class="text-primary fs-6">Digital Marketer</span>
+                            <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, libero
+                                corrupti. Nemo quis sint commodi nulla praesentium recusandae molestiae, ducimus
+                                incidunt cupiditate ad autem aliquam quod consequatur non id! Tempora.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-5 ">
+                    <div class="team-member position-relative">
+                        <div class="image-holder zoom-effect">
+                            <img src="images/team6.jpg" alt="team member" class="img-fluid">
+                            <ul class="social-links list-unstyled position-absolute">
+                                <li>
+                                    <a href="#">
+                                        <svg class="facebook text-dark ms-2  my-2" width="25" height="25"
+                                            aria-hidden="true">
+                                            <use xlink:href="#facebook"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="twitter text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#twitter"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="instagram text-dark ms-2 " width="30" height="30"
+                                            aria-hidden="true">
+                                            <use xlink:href="#instagram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="linkedin text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#linkedin"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="member-info pt-4 ">
+                            <a href="#">
+                                <h3 class="fs-4 text-uppercase">ester ian</h3>
+                            </a>
+                            <span class="text-primary fs-6">Sales Expert</span>
+                            <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, libero
+                                corrupti. Nemo quis sint commodi nulla praesentium recusandae molestiae, ducimus
+                                incidunt cupiditate ad autem aliquam quod consequatur non id! Tempora.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-5 ">
+                    <div class="team-member position-relative">
+                        <div class="image-holder zoom-effect">
+                            <img src="images/team3.jpg" alt="team member" class="img-fluid">
+                            <ul class="social-links list-unstyled position-absolute">
+                                <li>
+                                    <a href="#">
+                                        <svg class="facebook text-dark ms-2  my-2" width="25" height="25"
+                                            aria-hidden="true">
+                                            <use xlink:href="#facebook"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="twitter text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#twitter"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="instagram text-dark ms-2 " width="30" height="30"
+                                            aria-hidden="true">
+                                            <use xlink:href="#instagram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg class="linkedin text-dark ms-2 " width="30" height="30" aria-hidden="true">
+                                            <use xlink:href="#linkedin"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="member-info pt-4 ">
+                            <a href="#">
+                                <h3 class="fs-4 text-uppercase">quan peter</h3>
+                            </a>
+                            <span class="text-primary fs-6">SEO Expert</span>
+                            <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, libero
+                                corrupti. Nemo quis sint commodi nulla praesentium recusandae molestiae, ducimus
+                                incidunt cupiditate ad autem aliquam quod consequatur non id! Tempora.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="register">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-6 ">
+                    <img src="images/register-img.png" alt="img" class="img-fluid">
+                </div>
+                <div class="col-md-4 ">
+                    <div class="mb-5 mt-5 mt-lg-0">
+                        <h2 class="display-5 fw-semibold"> Get Your <span class="text-primary">Skills Certificate</span>
+                        </h2>
+                        <p class="secondary-font">Simple steps to get your quality skills certificate
+                            through WorldCourse.</p>
+                    </div>
+
+                    <form id="form">
+                        <input type="text" name="email" placeholder="Write Your Name*" class="form-control w-100 mb-4">
+                        <input type="email" name="email" placeholder="Write Your Email Address*"
+                            class="form-control w-100 mb-4">
+                        <button class="btn btn-primary px-5 py-3 mt-2"> Get Started now</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="padding-medium">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="display-5 fw-semibold">view our <span class="text-primary"> latest blogs</span></h2>
+                <p class="secondary-font">Get many features from us exactly what you are looking for.</p>
+            </div>
+
+            <div class="row ">
+                <div class="col-md-4 my-5">
+                    <div class="blog-post">
+                        <div class="image-holder zoom-effect rounded-3">
+                            <a href="single-post.html">
+                                <img src="images/blog2.jpg" alt="img" class="post-image img-fluid rounded-3">
+                            </a>
+                        </div>
+
+                        <div class="mt-3">
+                            <a href="#">
+                                <p class="text-black-50 m-1">Dec 1, 2024</p>
+                            </a>
+                            <a href="single-post.html">
+                                <h4 class="m-0">Education Is For Human Greatness And Achievments</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 my-5">
+                    <div class="blog-post">
+                        <div class="image-holder zoom-effect rounded-3">
+                            <a href="single-post.html">
+                                <img src="images/blog1.jpg" alt="img" class="post-image img-fluid rounded-3">
+                            </a>
+                        </div>
+
+                        <div class="mt-3">
+                            <a href="#">
+                                <p class="text-black-50 m-1">Dec 5, 2024</p>
+                            </a>
+                            <a href="single-post.html">
+                                <h4 class="m-0">The State Of Learn And Develop Tips In 2020</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 my-5">
+                    <div class="blog-post">
+                        <div class="image-holder zoom-effect rounded-3">
+                            <a href="single-post.html">
+                                <img src="images/blog3.jpg" alt="img" class="post-image img-fluid rounded-3">
+                            </a>
+                        </div>
+
+                        <div class="mt-3">
+                            <a href="#">
+                                <p class="text-black-50 m-1">Dec 10, 2024</p>
+                            </a>
+                            <a href="single-post.html">
+                                <h4 class="m-0">Special Tips For Learning Trends During The Outbreaks</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a class="btn btn-primary px-5 py-3 "> view all</a>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="testimonial" style="background-image:url(images/background-img.jpg); background-repeat: no-repeat; ">
+        <div class="container padding-medium">
+            <div class="text-center">
+                <h2 class="display-5 fw-semibold">see what our <span class="text-primary"> learners say</span></h2>
+                <p class="secondary-font">Here we got the real proof to express our work. Our learners expressed our
+                    work.</p>
+            </div>
+            <div class="row">
+                <div class="offset-md-1 col-md-10">
+                    <div class="swiper testimonial-swiper">
+                        <div class="swiper-wrapper">
+
+                            <div class="swiper-slide">
+                                <div class="text-center my-4">
+                                    <img src="images/reviewer-1.jpg" alt="img" class="img-fluid rounded-circle">
+                                    <h5 class="m-0 mt-2">Recco Gracia</h5>
+                                    <p class="text-muted">Web Developer</p>
+                                    <p class="lh-lg fw-bold text-black-50">“Lorem ipsum dolor sit amet, consectetur
+                                        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                        ut aliquip ex ea. Consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                        enim ad minim veniam”</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="text-center my-4">
+                                    <img src="images/reviewer-2.jpg" alt="img" class="img-fluid rounded-circle">
+                                    <h5 class="m-0 mt-2">Georgie Maggie</h5>
+                                    <p class="text-muted">Digital Marketer</p>
+                                    <p class="lh-lg fw-bold text-black-50">“Lorem ipsum dolor sit amet, consectetur
+                                        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                        ut aliquip ex ea. Consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                        enim ad minim veniam”</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="text-center my-4">
+                                    <img src="images/reviewer-3.jpg" alt="img" class="img-fluid rounded-circle">
+                                    <h5 class="m-0 mt-2">Emmy Watson</h5>
+                                    <p class="text-muted">Photographer</p>
+                                    <p class="lh-lg fw-bold text-black-50">“Lorem ipsum dolor sit amet, consectetur
+                                        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                        ut aliquip ex ea. Consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                        enim ad minim veniam”</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="swiper-pagination"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+    <footer id="footer">
+        <div class="container padding-medium ">
+            <div class="row">
+                <div class="col-md-4 my-3">
+                    <h5 class="text-uppercase fw-bold mb-4">Contact us</h5>
+                    <p><iconify-icon class="social-icon text-primary fs-5 me-2" icon="mdi:location"
+                            style="vertical-align:text-bottom"></iconify-icon> <span class="fw-bold">Address: </span> 30
+                        E Lake St,
+                        Chicago, USA</p>
+                    <p><iconify-icon class="social-icon text-primary fs-5 me-2" icon="solar:phone-bold"
+                            style="vertical-align:text-bottom"></iconify-icon> <span class="fw-bold">Phone: </span>
+                        (510) 710-3464</p>
+                    <p><iconify-icon class="social-icon text-primary fs-5 me-2" icon="ic:baseline-email"
+                            style="vertical-align:text-bottom"></iconify-icon> <span class="fw-bold">Email: </span>
+                        info@worldcourse.com
+                    </p>
+                </div>
+                <div class="col-md-2 my-3">
+                    <div class="footer-menu">
+                        <h5 class="text-uppercase fw-bold mb-4">Links</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Home</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">About us</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Courses</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Blogs</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#" class="footer-link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 my-3">
+                    <div class="footer-menu">
+                        <h5 class="text-uppercase fw-bold mb-4">support</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="menu-item mb-2">
+                                <a href="#">FAQs</a>
+                            </li>
+                            <li class="menu-item mb-2">
+                                <a href="#">Support</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 my-3">
+                    <div class="footer-menu">
+                        <h5 class="text-uppercase fw-bold mb-4">Follow us</h5>
+                        <div class="social-links mt-4">
+                            <ul class="d-flex list-unstyled gap-3">
+                                <li class="social">
+                                    <a href="#">
+                                        <iconify-icon class="social-icon fs-4 me-2"
+                                            icon="ri:facebook-fill"></iconify-icon>
+                                    </a>
+                                </li>
+                                <li class="social">
+                                    <a href="#">
+                                        <iconify-icon class="social-icon fs-4 me-2"
+                                            icon="ri:twitter-fill"></iconify-icon>
+                                    </a>
+                                </li>
+                                <li class="social">
+                                    <a href="#">
+                                        <iconify-icon class="social-icon fs-4 me-2"
+                                            icon="ri:pinterest-fill"></iconify-icon>
+                                    </a>
+                                </li>
+                                <li class="social">
+                                    <a href="#">
+                                        <iconify-icon class="social-icon fs-4 me-2"
+                                            icon="ri:instagram-fill"></iconify-icon>
+                                    </a>
+                                </li>
+                                <li class="social">
+                                    <a href="#">
+                                        <iconify-icon class="social-icon fs-4 me-2"
+                                            icon="ri:youtube-fill"></iconify-icon>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="footer-bottom">
+        <hr class="m-0 text-black-50">
+        <div class="container py-3">
+            <div class="row mt-3">
+                <div class="col-md-6 copyright">
+                    <p>© 2024 WorldCourse. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p><a target="_blank" href="http://www.mobanwang.com/" title="网页模板" class="text-decoration-underline fw-bold">网页模板</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/script.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+</body>
+
+</html>
