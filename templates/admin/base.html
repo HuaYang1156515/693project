@@ -125,18 +125,20 @@
             <li class="nav-item">
               <a href="{{ url_for('home') }}" class="nav-link mx-2 active">Home</a>
             </li>
-
+            <li class="nav-item">
+                <a href="{{ url_for('admin.home') }}" class="nav-link mx-2 active">Admin Dashboard</a>
+              </li>
             <li class="nav-item dropdown">
               <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="events"
                 data-bs-toggle="dropdown" aria-expanded="false">events</a>
               <ul class="dropdown-menu" aria-labelledby="courses">
-                <li><a href="event.html" class="dropdown-item">event</a></li>
-                <li><a href="event-details.html" class="dropdown-item">event details</a></li>
+                <li><a href="{{ url_for('event.event_management') }}" class="dropdown-item">event management</a></li>
+                <li><a href="{{ url_for('event.new_event') }}" class="dropdown-item">new event</a></li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a href="contact.html" class="nav-link mx-2">contact</a>
+              <a href="{{ url_for('users.users_management') }}" class="nav-link mx-2">users management</a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link mx-2 text-decoration-underline">About</a>
@@ -156,9 +158,7 @@
               <li>
                 <a class="btn btn-outline-dark mx-3 p-3" href="{{ url_for('login') }}">Login</a>
               </li>
-              <li>
-                <a class="btn btn-outline-dark mx-3 p-3" href="{{ url_for('register') }}">Register</a>
-              </li>
+             
               {% endif %}
 
             </ul>

@@ -98,14 +98,7 @@ def event_dashboard():
     events = Event.query.all()
     return render_template('event_dashboard.html', events=events)
 
-@app.route('/admin/dashboard')
-@login_required
-def admin_dashboard():
-    if current_user.role != 'admin':
-        flash('You are not authorized to view this page.')
-        return redirect(url_for('home'))
-    events = Event.query.all()
-    return render_template('admin_dashboard.html', events=events)
+
 
 # Event detail route
 @app.route('/event/<int:event_id>')

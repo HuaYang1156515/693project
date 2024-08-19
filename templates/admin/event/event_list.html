@@ -1,0 +1,74 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}Event Dashboard - Community Event Planner{% endblock %}
+
+{% block content %}
+<section id="top-sell" class="padding-medium">
+    <div class="container">
+
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-semibold">Check  <span class="text-primary">Events</span></h2>
+      
+      </div>
+
+      <div class="text-center mb-3">
+        <p class="m-0">
+          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4  active" data-filter="*">All</button>
+          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".digital">Digital marketing</button>
+          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".web">Web design</button>
+          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".photo">Photography</button>
+          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".business">Bussiness</button>
+          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".video">Video editing</button>
+        </p>
+      </div>
+
+      <div class="isotope-container row">
+        {% for event in events %}
+        <div class="item digital col-md-4 col-lg-3 my-5">
+          <div class="z-1 position-absolute m-3">
+            <span class="badge text-muted bg-primary">12 Weeks</span>
+          </div>
+          <div class="card position-relative">
+            <a href="courses-details.html"><img src="images/item4.jpg" class="img-fluid rounded-3" alt="image"></a>
+            <div class="card-body p-0">
+
+              <span class="badge text-muted bg-success mt-3 mb-1">feature</span>
+
+              <a href="courses-details.html">
+                <h5 class="py-2 m-0">{{ event.name }}</h5>
+              </a>
+
+              <div class="card-text">
+                <span class="rating d-flex align-items-center mb-2">
+                  <p class="text-muted fw-semibold m-0 me-2">who</p>
+                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                </span>
+
+                <h4 class=" text-primary">{{ event.date }} <span
+                    class="fs-6 text-black opacity-25 text-decoration-line-through">{{ event.location }}</span></h4>
+
+                <div class="d-flex flex-wrap mt-2">
+                  <a href="#" class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">Join Now</a>
+                  <a href="#" class=" btn btn-outline-dark text-capitalize ">
+                    <iconify-icon icon="mdi:heart-outline" class="fs-5 pt-1"></iconify-icon>
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        
+
+      </div>
+
+
+    </div>
+  </section>
+{% endblock %}

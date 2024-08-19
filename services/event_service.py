@@ -1,8 +1,12 @@
 from models.event_model import Event
 from app import db
+from services import DbText
+
 
 def get_event_by_id(event_id):
-    return Event.query.get(event_id)
+    sql = f"""select * from event where event_id = '{event_id}'"""
+    result = DbText.query_one(sql)
+    return result
 
 def create_event(name, description, location, date, created_by, category_id):
     new_event = Event(

@@ -1,30 +1,26 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for, flash
 from flask_login import login_required, current_user
-from services.event_service import (
-    get_event_by_id, create_event, update_event, delete_event, get_all_events
-)
+from services import event_service 
 from models.event_model import Event  
 from app import db
 from models.event_registration_model import EventRegistration
 
-event_bp = Blueprint('event_bp', __name__)
+event_bp = Blueprint('event', __name__)
 
-@event_bp.route('/events', methods=['GET'])
-def get_events():
-    events = get_all_events()
+@event_bp.route('/event_management', methods=['GET'])
+def event_management():
+    events = event_service.get_all_events()
     return jsonify([event.serialize() for event in events]), 200
 
-@event_bp.route('/event/<int:event_id>', methods=['GET'])
-def get_event(event_id):
-    event = get_event_by_id(event_id)
-    if event:
-        return jsonify(event.serialize()), 200
-    return jsonify({"error": "Event not found"}), 404
+@event_bp.route('/view_event/<int:event_id>', methods=['GET'])
+def view_event(event_id):
+    event = event_service.get_event_by_id(event_id)
+    return render_template("admin/event_detail.html",event = event)
 
 @event_bp.route('/event', methods=['POST'])
 def add_event():
     data = request.json
-    new_event = create_event(
+    new_event = event_service.create_event(
         name=data['name'],
         description=data['description'],
         location=data['location'],
@@ -37,7 +33,7 @@ def add_event():
 @event_bp.route('/event/<int:event_id>', methods=['PUT'])
 def update_event_info(event_id):
     data = request.json
-    updated_event = update_event(
+    updated_event = event_service.update_event(
         event_id,
         name=data.get('name'),
         description=data.get('description'),
@@ -51,7 +47,7 @@ def update_event_info(event_id):
 
 @event_bp.route('/event/<int:event_id>', methods=['DELETE'])
 def delete_event_info(event_id):
-    deleted_event = delete_event(event_id)
+    deleted_event = event_service.delete_event(event_id)
     if deleted_event:
         return jsonify({"message": "Event deleted successfully"}), 200
     return jsonify({"error": "Event not found"}), 404

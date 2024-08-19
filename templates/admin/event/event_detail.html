@@ -1,0 +1,78 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}Event Dashboard - Community Event Planner{% endblock %}
+
+{% block content %}
+<section id="banner" style="background-image:url(images/background-img.jpg);">
+    <div class="container padding-medium-2">
+        <div class="hero-content ">
+            <h2 class="display-2 fw-semibold">Event <span class="text-primary">Details</span></h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item text-muted nav-link" href="#">Home</a>
+                <a class="breadcrumb-item text-muted nav-link" href="#">Pages</a>
+                <span class="breadcrumb-item active" aria-current="page">Event Details</span>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<div class="container padding-medium">
+    <h2 class="display-5 fw-semibold">{{event.name}}</h2>
+    <div class="d-md-flex mt-2 mb-5">
+        <div><iconify-icon icon="lets-icons:date-today" class="text-primary fs-5 pt-1"
+                style="vertical-align: sub;"></iconify-icon> {{event.date}}</div>
+        <div class=" align-self-end fs-5">&nbsp; | &nbsp;</div>
+        <div><iconify-icon icon="mdi:location" class="text-primary fs-5 pt-1"
+                style="vertical-align: sub;"></iconify-icon> {{event.location}}</div>
+        <div class=" align-self-end fs-5">&nbsp; | &nbsp;</div>
+        <div><iconify-icon icon="solar:phone-bold" class="text-primary fs-5 pt-1"
+                style="vertical-align: sub;"></iconify-icon> (510) 710-3464</div>
+    </div>
+    <img src="images/item-lg3.jpg" alt="single-post" class="img-fluid">
+</div>
+
+<div class="post-wrap">
+    <div class="container">
+        <div class="row g-md-5">
+            <main class="post-grid col-md-8">
+
+                <div class="post-description">
+                    {{event.description}}
+                </div>
+
+                <div class="mt-5">
+                    <h4>Event Location</h4>
+                    <div class="mb-4 fs-6"><iconify-icon icon="mdi:location" class="text-primary fs-5 "
+                            style="vertical-align: sub;"></iconify-icon> {{event.location}}</div>
+                    <div class="mapouter">
+                        <div class="gmap_canvas"><iframe width="100%" height="500" id="gmap_canvas" src="https://www.amap.com/" sandbox="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+            <aside class="col-md-4 mt-5">
+                <div class="post-sidebar">
+
+                    <div class="reviews-components widget sidebar-categories rounded-3 p-4 p-md-5 mb-5">
+                       
+                        <div class="d-grid text-center">
+                            <button class="btn btn-primary px-5 py-3 my-2">Book now</button>
+                            <p>You must <a href="account.html" class="course text-decoration-underline">login</a>
+                                before register event.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

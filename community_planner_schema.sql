@@ -29,7 +29,7 @@ CREATE TABLE events (
     location VARCHAR(255) NOT NULL,
     date DATETIME NOT NULL,
     status CHAR(2) DEFAULT '0',  -- 0: active, 1: canceled
-    created_by INT NOT NULL,
+    created_by DATETIME DEFAULT CURRENT_TIMESTAMP,
     category_id INT,
     FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
