@@ -43,3 +43,7 @@ def query_one(sql):
 def db_execute(sql):
     connection = getCursor()
     connection.execute(sql)
+
+def execute(sql,values):
+    connection = getCursor()
+    connection.execute(sql,values)

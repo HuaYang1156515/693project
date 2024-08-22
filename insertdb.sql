@@ -15,3 +15,7 @@ INSERT INTO events (name, description, location, date, status, created_by, categ
 ('Beach Party', 'Join us for a fun beach party!', 'Beach', '2024-08-15 18:00:00', '0', 2, 1),
 ('Python Workshop', 'Learn Python basics in this workshop.', 'Library', '2024-08-20 10:00:00', '0', 3, 2),
 ('Business Seminar', 'Networking and business development seminar.', 'Conference Hall', '2024-09-01 09:00:00', '0', 2, 3);
+
+
+
+ALTER TABLE `community_event_planner`.`events` ADD COLUMN `end_date` DATETIME NULL AFTER `date`;

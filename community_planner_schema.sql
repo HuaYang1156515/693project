@@ -21,19 +21,21 @@ CREATE TABLE categories (
     status CHAR(2) DEFAULT '0'  -- 0: active, 1: inactive
 );
 
--- Events Table
+ -- Events Table
 CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     description TEXT,
     location VARCHAR(255) NOT NULL,
     date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
     status CHAR(2) DEFAULT '0',  -- 0: active, 1: canceled
-    created_by DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    author_id int,
     category_id INT,
-    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
-);
+); 
 
 -- Event Registrations Table
 CREATE TABLE event_registrations (

@@ -18,8 +18,8 @@ def home():
     if current_user.role != 'admin':
         flash('You are not authorized to view this page.')
         return redirect(url_for('home'))
-    events = Event.query.all()
-    return render_template('admin/admin_dashboard.html', events=events)
+    
+    return render_template('admin/dashboard.html')
 
 @admin_bp.route('/admin/<int:admin_id>', methods=['GET'])
 def get_admin(admin_id):

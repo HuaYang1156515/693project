@@ -10,25 +10,27 @@ event_bp = Blueprint('event', __name__)
 @event_bp.route('/event_management', methods=['GET'])
 def event_management():
     events = event_service.get_all_events()
-    return jsonify([event.serialize() for event in events]), 200
+    return render_template("front/event/event_list.html",events=events)
 
 @event_bp.route('/view_event/<int:event_id>', methods=['GET'])
 def view_event(event_id):
     event = event_service.get_event_by_id(event_id)
     return render_template("admin/event_detail.html",event = event)
 
-@event_bp.route('/event', methods=['POST'])
-def add_event():
-    data = request.json
-    new_event = event_service.create_event(
-        name=data['name'],
-        description=data['description'],
-        location=data['location'],
-        date=data['date'],
-        created_by=data['created_by'],
-        category_id=data['category_id']
-    )
-    return jsonify(new_event.serialize()), 201
+@event_bp.route('/create_event', methods=['GET','POST'])
+def create_event():
+    categories = event_service.get_categories()
+    if request.method == 'POST':
+        name=request.form['name']
+        description=request.form['description']
+        location=request.form['location']
+        date=request.form['date']
+        end_date=request.form['end_date']
+        category_id=request.form['category_id']
+        event_service.create_event(name, description, location, date,end_date , category_id,current_user.id)
+        flash("Created event successful")
+        return redirect(url_for('event.event_management'))
+    return render_template("front/event/create_event.html",categories=categories)
 
 @event_bp.route('/event/<int:event_id>', methods=['PUT'])
 def update_event_info(event_id):
@@ -72,3 +74,7 @@ def register_event(event_id):
         return redirect(url_for('event_bp.event_detail', event_id=event.id))
     flash('Event not found!')
     return redirect(url_for('home'))
+
+
+
+

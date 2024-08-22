@@ -1,5 +1,6 @@
 from models.user_model import User
 from app import db
+from services import DbText
 from config import setting
 
 def get_admin_by_id(admin_id):
@@ -34,23 +35,15 @@ def delete_admin(admin_id):
 
 
 def query_workshop_cal():
-    sql = """
+    sql = f"""
     SELECT
-        workshop_id AS id,
-        title,
-        CONCAT(:url_base, '/event/view_event/', workshop_id) AS url,
-        'event' AS class,
-        UNIX_TIMESTAMP(DATE_SUB(start_date, INTERVAL 12 HOUR)) * 1000 AS start,
-        UNIX_TIMESTAMP(DATE_SUB(end_date, INTERVAL 12 HOUR)) * 1000 AS end
+        id AS id,
+        name,
+        CONCAT( '{setting.url}/event/view_event/', id) AS url,
+        UNIX_TIMESTAMP(DATE_SUB(date, INTERVAL 12 HOUR)) * 1000 AS start,
+        UNIX_TIMESTAMP(DATE_SUB(date_end, INTERVAL 12 HOUR)) * 1000 AS end
     FROM
-        workshops
+        events
     """
+    return DbText.query_all(sql)
     
-    result = db.session.execute(sql, {
-        'url_base': setting.url
-    })
-    
-    # Convert result to a list of dictionaries
-    data = [dict(row) for row in result]
-    
-    return data

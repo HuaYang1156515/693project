@@ -21,7 +21,7 @@
   integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css" href="/static/css/vendor.css">
-<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,8 +130,9 @@
               <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="events"
                 data-bs-toggle="dropdown" aria-expanded="false">events</a>
               <ul class="dropdown-menu" aria-labelledby="courses">
-                <li><a href="event.html" class="dropdown-item">event</a></li>
-                <li><a href="event-details.html" class="dropdown-item">event details</a></li>
+                <li><a href="{{ url_for('event.event_management') }}" class="dropdown-item">event</a></li>
+                <li><a href="{{ url_for('event.create_event') }}" class="dropdown-item">create event</a></li>
+                <li><a href="{{ url_for('event.create_event') }}" class="dropdown-item">event schedule</a></li>
               </ul>
             </li>
 
@@ -169,35 +170,6 @@
       </div>
 
     </div>
-    <div class="container-fluid d-lg-none">
-      <div class="d-flex  align-items-end mt-3">
-        <ul class="d-flex justify-content-end list-unstyled m-0">
-          <li>
-            <a href="account.html" class="me-4">
-              <iconify-icon icon="healthicons:person" class="fs-4 me-2"></iconify-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="wishlist.html" class="me-4">
-              <iconify-icon icon="mdi:heart" class="fs-4 me-2"></iconify-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="me-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-              aria-controls="offcanvasCart">
-              <iconify-icon icon="mdi:cart" class="fs-4 me-2 position-relative"></iconify-icon>
-              <span class="position-absolute translate-middle badge rounded-circle bg-primary text-black">
-                03
-              </span>
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-    </div>
   </nav>
 
     <!-- Main Content Area -->
@@ -205,7 +177,9 @@
         {% block content %}{% endblock %}
     
 
-   
+        {% for category, message in get_flashed_messages(with_categories=true) %}
+        <div class="flash" id="flash-message">{{ message }}</div>
+        {% endfor %}
   <footer id="footer">
     <div class="container padding-medium ">
       <div class="row">
@@ -284,5 +258,29 @@
   <script src="/static/js/script.js"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </body>
+<script>
+  // 在页面加载后，8 秒后隐藏 Flash 消息
+  window.onload = function () {
+    setTimeout(function () {
+      var flashMessage = document.getElementById('flash-message');
+      flashMessage.style.display = 'none';
+    }, 5000); // 5 秒后隐藏
+  };
 
+
+
+</script>
+<style>
+  .flash {
+    background-color: #ffcc00;
+    color: #333;
+    border: 1px solid #ffcc00;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+</style>
 </html>

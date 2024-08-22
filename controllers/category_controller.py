@@ -1,21 +1,21 @@
-from flask import Blueprint, request, jsonify
-from services.category_service import (
-    get_category_by_id, create_category, update_category, delete_category, get_all_categories
-)
+from flask import Blueprint, request, jsonify,render_template,flash,redirect,url_for
+from services import category_service
 
-category_bp = Blueprint('category_bp', __name__)
+category_bp = Blueprint('category', __name__)
 
-@category_bp.route('/categories', methods=['GET'])
-def get_categories():
-    categories = get_all_categories()
-    return jsonify([category.serialize() for category in categories]), 200
+@category_bp.route('/category_management', methods=['GET'])
+def category_management():
+    categories = category_service.get_all_categories()
+    return render_template("admin/category/create_list.html") 
 
-@category_bp.route('/category/<int:category_id>', methods=['GET'])
-def get_category(category_id):
-    category = get_category_by_id(category_id)
-    if category:
-        return jsonify(category.serialize()), 200
-    return jsonify({"error": "Category not found"}), 404
+@category_bp.route('/create_category', methods=['GET','POST'])
+def create_category():
+    if request.method == 'POST':
+        name = request.form['name']
+        category_service.create_category(name)
+        flash("create category successful")
+        return redirect(url_for('category.category_management'))
+    return render_template("admin/category/create_category.html")
 
 @category_bp.route('/category', methods=['POST'])
 def add_category():

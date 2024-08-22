@@ -8,18 +8,14 @@ def get_event_by_id(event_id):
     result = DbText.query_one(sql)
     return result
 
-def create_event(name, description, location, date, created_by, category_id):
-    new_event = Event(
-        name=name,
-        description=description,
-        location=location,
-        date=date,
-        created_by=created_by,
-        category_id=category_id
-    )
-    db.session.add(new_event)
-    db.session.commit()
-    return new_event
+def create_event(name, description, location, date,end_date , category_id,user_id):
+    sql = """
+    INSERT INTO Events (name, description, location, date, end_date, category_id, author_id)
+    VALUES (%s, %s, %s, %s, %s, %s, %s);"""
+    values = (name, description, location, date, end_date , category_id,user_id)
+
+    DbText.execute(sql, values)
+    return True
 
 def update_event(event_id, name=None, description=None, location=None, date=None, category_id=None):
     event = get_event_by_id(event_id)
@@ -44,5 +40,8 @@ def delete_event(event_id):
         db.session.commit()
     return event
 
-def get_all_events():
-    return Event.query.all()
+
+def get_categories():
+    sql = """select * from categories"""
+    result = DbText.query_all(sql)
+    return result

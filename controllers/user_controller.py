@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from services.user_service import get_user_by_id, create_user, update_user, delete_user
 
-user_bp = Blueprint('user_bp', __name__)
+user_bp = Blueprint('user', __name__)
 
 @user_bp.route('/user/<int:user_id>', methods=['GET'])
 def get_user(user_id):
@@ -30,3 +30,8 @@ def remove_user(user_id):
     if success:
         return jsonify({"message": "User deleted"}), 200
     return jsonify({"error": "User not found"}), 404
+
+
+@user_bp.route('/users_management', methods=['GET','POST'])
+def users_management():
+    return
