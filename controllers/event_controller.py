@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from services import event_service 
 from models.event_model import Event  
 from app import db
+from config import setting
 from models.event_registration_model import EventRegistration
 
 event_bp = Blueprint('event', __name__)
@@ -26,8 +27,15 @@ def create_event():
         location=request.form['location']
         date=request.form['date']
         end_date=request.form['end_date']
+        intro = request.form['intro']
         category_id=request.form['category_id']
-        event_service.create_event(name, description, location, date,end_date , category_id,current_user.id)
+        image = request.files['image']
+        if image:
+            image.save('static/images/event/' + image.filename)
+            image_name= '/static/images/event/'+ image.filename
+        else:
+            image_name = setting.default_image
+        event_service.create_event(name, description, location, date,end_date,category_id,intro,image_name,current_user.id)
         flash("Created event successful")
         return redirect(url_for('event.event_management'))
     return render_template("front/event/create_event.html",categories=categories)

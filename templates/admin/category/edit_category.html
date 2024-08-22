@@ -7,7 +7,7 @@
 <section id="banner" style="background-image:url(/static/images/background-img.jpg);">
     <div class="container padding-medium-2">
         <div class="hero-content ">
-            <h2 class="display-2 fw-semibold">Create New Category</h2>
+            <h2 class="display-2 fw-semibold">Edit Category</h2>
             <nav class="breadcrumb">
                 <a class="breadcrumb-item text-muted nav-link" href="{{url_for('admin.home')}}">Home</a>
                 
@@ -27,9 +27,9 @@
             <h2 class="display-5 fw-semibold"> Create <span class="text-primary">New Category</span></h2>
             
           </div>
-          <form id="form" action="{{ url_for('category.create_category') }}" method="post">
+          <form id="form" action="{{ url_for('category.edit_category',id =category.id) }}" method="post">
             <label>Category Name</label>
-            <input type="text" name="name" placeholder="Write category Name*" class="form-control w-100 mb-4">
+            <input type="text" name="name" value="{{category.name}}" class="form-control w-100 mb-4">
             <button class="btn btn-primary px-5 py-3 mt-2" type="submit"> Submit</button>
           </form>
 

@@ -20,8 +20,8 @@ def create_category():
 @category_bp.route('/edit_category/<int:id>', methods=['GET','POST'])
 def edit_category(id):
     id = id
-   
-    return 
+    category = category_service.get_category_by_id(id)
+    return render_template("admin/category/edit_category.html",category=category)
 
 @category_bp.route('/delete_category', methods=['GET','PUT'])
 def delete_category():
