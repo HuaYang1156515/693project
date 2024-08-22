@@ -21,7 +21,7 @@ def view_event(event_id):
 def create_event():
     categories = event_service.get_categories()
     if request.method == 'POST':
-        name=request.form['name']
+        name = request.form['name']
         description=request.form['description']
         location=request.form['location']
         date=request.form['date']

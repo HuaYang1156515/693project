@@ -28,4 +28,6 @@ def delete_category(category_id):
     return category
 
 def get_all_categories():
-    return Category.query.all()
+    sql = """select * from categories"""
+    results = DbText.query_all(sql)
+    return results

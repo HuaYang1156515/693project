@@ -6,7 +6,7 @@ category_bp = Blueprint('category', __name__)
 @category_bp.route('/category_management', methods=['GET'])
 def category_management():
     categories = category_service.get_all_categories()
-    return render_template("admin/category/create_list.html") 
+    return render_template("admin/category/category_list.html",categories=categories) 
 
 @category_bp.route('/create_category', methods=['GET','POST'])
 def create_category():
@@ -17,27 +17,16 @@ def create_category():
         return redirect(url_for('category.category_management'))
     return render_template("admin/category/create_category.html")
 
-@category_bp.route('/category', methods=['POST'])
-def add_category():
-    data = request.json
-    new_category = create_category(name=data['name'])
-    return jsonify(new_category.serialize()), 201
+@category_bp.route('/edit_category/<int:id>', methods=['GET','POST'])
+def edit_category(id):
+    id = id
+   
+    return 
 
-@category_bp.route('/category/<int:category_id>', methods=['PUT'])
-def update_category_info(category_id):
-    data = request.json
-    updated_category = update_category(
-        category_id,
-        name=data.get('name'),
-        status=data.get('status')
-    )
-    if updated_category:
-        return jsonify(updated_category.serialize()), 200
-    return jsonify({"error": "Category not found"}), 404
+@category_bp.route('/delete_category', methods=['GET','PUT'])
+def delete_category():
+    data = request.json  # 获取从前端传递的数据
+    category_id = data.get('id')  # 提取类别ID
+    category_service.delete_category(id)
+    return
 
-@category_bp.route('/category/<int:category_id>', methods=['DELETE'])
-def delete_category_info(category_id):
-    deleted_category = delete_category(category_id)
-    if deleted_category:
-        return jsonify({"message": "Category deleted successfully"}), 200
-    return jsonify({"error": "Category not found"}), 404

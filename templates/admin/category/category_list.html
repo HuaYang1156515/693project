@@ -1,0 +1,83 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Admin Dashboard - Community Event Planner{% endblock %}
+{% block content %}
+
+
+<section id="banner" style="background-image:url(images/background-img.jpg);">
+    <div class="container padding-medium-2">
+        <div class="hero-content ">
+            <h2 class="display-2 fw-semibold"><span class="text-primary">Categories</span> </h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item text-muted nav-link" href="{{url_for('admin.home')}}">Home</a>
+                
+                <span class="breadcrumb-item active" aria-current="page">Categories</span>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section id="course" class="padding-medium">
+    <div class="container">
+        <div class="mb-5 mt-5 mt-lg-0">
+            <h2 class="display-5 fw-semibold">  <span class="text-primary">Category List</span></h2>
+            
+          </div>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in categories %}
+                    <tr>
+                        <td>{{ c.name }}</td>
+                        <td>
+                            <a href="{{ url_for('category.edit_category', id=c.id) }}">Edit</a> |
+                            <a href="#" class="delete-category-link" data-id="{{ c.id }}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var deleteLinks = document.querySelectorAll('.delete-category-link');
+    
+        deleteLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // 防止默认链接跳转行为
+                
+                var categoryId = this.getAttribute('data-id');
+                var confirmed = confirm("Are you sure you want to delete this category?");
+                
+                if (confirmed) {
+                    // 使用 AJAX 发送删除请求
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', "{{ url_for('category.delete_category') }}", true);
+                    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                alert("Category deleted successfully.");
+                                location.reload();  // 删除成功后刷新页面或更新 UI
+                            } else {
+                                alert("An error occurred while trying to delete the category.");
+                            }
+                        }
+                    };
+                    
+                    xhr.send(JSON.stringify({ id: categoryId }));
+                }
+            });
+        });
+    });
+    </script>
+{% endblock %}
