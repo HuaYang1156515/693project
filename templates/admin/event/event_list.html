@@ -4,71 +4,101 @@
 
 {% block content %}
 <section id="top-sell" class="padding-medium">
-    <div class="container">
+  <div class="container">
 
-      <div class="text-center mb-5">
-        <h2 class="display-5 fw-semibold">Check  <span class="text-primary">Events</span></h2>
-      
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-semibold">Check <span class="text-primary">Events</span></h2>
+
+    </div>
+
+    <form action="{{ url_for('admin.filter_events') }}" method="POST">
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <input type="text" id="search-input" name="search" class="form-control"
+            placeholder="Search by Location or Date">
+        </div>
+        <div class="col-md-4">
+          <select id="location-date-select" name="filter" class="form-control">
+            <option value="location">Location</option>
+            <option value="date">Date</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <select id="category-select" name="category" class="form-control">
+            <option value="">Filter by Category</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
 
-      <div class="text-center mb-3">
-        <p class="m-0">
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4  active" data-filter="*">All</button>
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".digital">Digital marketing</button>
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".web">Web design</button>
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".photo">Photography</button>
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".business">Bussiness</button>
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".video">Video editing</button>
-        </p>
+      <div class="text-center mb-4">
+        <button type="submit" class="btn btn-primary me-2">Filter</button>
+        <a href="{{ url_for('admin.event_management') }}" class="btn btn-secondary">Reset</a>
       </div>
+    </form>
 
-      <div class="isotope-container row">
-        {% for event in events %}
-        <div class="item digital col-md-4 col-lg-3 my-5">
-          <div class="z-1 position-absolute m-3">
-            <span class="badge text-muted bg-primary">12 Weeks</span>
-          </div>
-          <div class="card position-relative">
-            <a href="courses-details.html"><img src="images/item4.jpg" class="img-fluid rounded-3" alt="image"></a>
-            <div class="card-body p-0">
 
-              <span class="badge text-muted bg-success mt-3 mb-1">feature</span>
-
-              <a href="courses-details.html">
-                <h5 class="py-2 m-0">{{ event.name }}</h5>
+    <div class="isotope-container row" id="events-container">
+      {% if events %}
+      {% for event in events %}
+      <div class="item digital col-md-4 col-lg-3 my-5">
+        <div class="card position-relative">
+          <img src="{{ event.img }}" class="img-fluid rounded-3" alt="image">
+          <div class="card-body p-0">
+            <span class="badge text-muted bg-success mt-3 mb-1">feature</span>
+            <a href="{{ url_for('admin.event_detail',id=event.id) }}" target="_blank">
+              <h5 class="py-2 m-0">{{ event.name }}</h5>
+            </a>
+            <div class="card-text">
+              <h4 class="text-primary">{{ event.date }} - {{ event.end_date }}</h4>
+              <span class="fs-6 text-black opacity-25">{{ event.location }}</span>
+            </div>
+            <div class="card-text">
+              <a href="{{ url_for('admin.event_detail',id=event.id) }}" class="btn btn-outline-dark text-capitalize"
+                target="_blank">View</a> |
+              <a href="#" class="btn btn-outline-dark text-capitalize" id="cancel-event" data-event-id="{{ event.id }}">
+                Offline
+              </a> | <a href="{{ url_for('admin.edit_event',id=event.id) }}"
+                class="btn btn-outline-dark text-capitalize" id="cancel-event" data-event-id="{{ event.id }}">
+                Edit
               </a>
-
-              <div class="card-text">
-                <span class="rating d-flex align-items-center mb-2">
-                  <p class="text-muted fw-semibold m-0 me-2">who</p>
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                </span>
-
-                <h4 class=" text-primary">{{ event.date }} <span
-                    class="fs-6 text-black opacity-25 text-decoration-line-through">{{ event.location }}</span></h4>
-
-                <div class="d-flex flex-wrap mt-2">
-                  <a href="#" class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">Join Now</a>
-                  <a href="#" class=" btn btn-outline-dark text-capitalize ">
-                    <iconify-icon icon="mdi:heart-outline" class="fs-5 pt-1"></iconify-icon>
-                  </a>
-                </div>
-
-              </div>
-
             </div>
           </div>
         </div>
-        {% endfor %}
-        
-
       </div>
-
-
+      {% endfor %}
+      {% else %}
+      <p>No events found.</p>
+      {% endif %}
     </div>
-  </section>
+
+
+  </div>
+</section>
+<script>
+  $(document).ready(function () {
+    $('#cancel-event').click(function (e) {
+      e.preventDefault();  // 防止默认链接跳转
+
+      var eventId = $(this).data('event-id');
+
+      $.ajax({
+        url: "{{ url_for('admin.cancel_event') }}",  // Flask 视图的 URL
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ "event_id": eventId, "status": 1 }),  // 发送事件 ID 和状态
+        success: function (response) {
+          alert('Event status updated successfully!');
+          // 你可以根据需要更新页面内容，或进行其他操作
+        },
+        error: function (xhr, status, error) {
+          console.error('Error updating event:', error);
+          alert('Failed to update event status.');
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}

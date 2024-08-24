@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&family=Roboto+Slab&display=swap"
     rel="stylesheet">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -80,7 +80,8 @@
                             <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="courses"
                                 data-bs-toggle="dropdown" aria-expanded="false">Events</a>
                             <ul class="dropdown-menu" aria-labelledby="courses">
-                                <li><a href="{{ url_for('event.event_management') }}" class="dropdown-item">Events Management</a></li>
+                                <li><a href="{{ url_for('admin.event_management') }}" class="dropdown-item">Events
+                                        Management</a></li>
                             </ul>
                         </li>
 
@@ -88,8 +89,10 @@
                             <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="courses"
                                 data-bs-toggle="dropdown" aria-expanded="false">Category</a>
                             <ul class="dropdown-menu" aria-labelledby="courses">
-                                <li><a href="{{ url_for('category.category_management') }}" class="dropdown-item">Category Management</a></li>
-                                <li><a href="{{ url_for('category.create_category') }}" class="dropdown-item">Create Category </a></li>
+                                <li><a href="{{ url_for('category.category_management') }}"
+                                        class="dropdown-item">Category Management</a></li>
+                                <li><a href="{{ url_for('category.create_category') }}" class="dropdown-item">Create
+                                        Category </a></li>
                             </ul>
                         </li>
 
@@ -97,8 +100,9 @@
                             <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="blog"
                                 data-bs-toggle="dropdown" aria-expanded="false">Users</a>
                             <ul class="dropdown-menu" aria-labelledby="blog">
-                                <li><a href="blog.html" class="dropdown-item">Users Management</a></li>
-                                <li><a href="single-post.html" class="dropdown-item">New User</a></li>
+                                <li><a href="{{ url_for('user.users_management') }}" class="dropdown-item">Users
+                                        Management</a></li>
+                                <li><a href="{{ url_for('user.create_user') }}" class="dropdown-item">New User</a></li>
                             </ul>
                         </li>
 
@@ -229,26 +233,27 @@
 <script>
     // 在页面加载后，8 秒后隐藏 Flash 消息
     window.onload = function () {
-      setTimeout(function () {
-        var flashMessage = document.getElementById('flash-message');
-        flashMessage.style.display = 'none';
-      }, 5000); // 5 秒后隐藏
+        setTimeout(function () {
+            var flashMessage = document.getElementById('flash-message');
+            flashMessage.style.display = 'none';
+        }, 5000); // 5 秒后隐藏
     };
-  
-  
-  
-  </script>
-  <style>
+
+
+
+</script>
+<style>
     .flash {
-      background-color: #ffcc00;
-      color: #333;
-      border: 1px solid #ffcc00;
-      padding: 20px;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1000;
+        background-color: #ffcc00;
+        color: #333;
+        border: 1px solid #ffcc00;
+        padding: 20px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
     }
-  </style>
+</style>
+
 </html>

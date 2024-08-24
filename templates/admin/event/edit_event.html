@@ -1,6 +1,6 @@
-{% extends 'front/base.html' %}
+{% extends 'admin/base.html' %}
 
-{% block title %}Edit Event - Community Event Planner{% endblock %}
+{% block title %}Create Event - Community Event Planner{% endblock %}
 
 {% block content %}
 <section id="banner" style="background-image:url(/static/images/background-img.jpg);">
@@ -10,99 +10,93 @@
             <nav class="breadcrumb">
                 <a class="breadcrumb-item text-muted nav-link" href="{{url_for('admin.home')}}">Home</a>
 
-                <span class="breadcrumb-item active" aria-current="page">Create New Event</span>
+                <span class="breadcrumb-item active" aria-current="page">Edit Event</span>
             </nav>
         </div>
     </div>
 </section>
 <section id="course" class="padding-medium">
     <div class="container">
-        <form method="POST" action="{{ url_for('event.edit_event', id=event.id) }}" id="eventForm"
+        <form method="POST" action="{{ url_for('admin.edit_event',id=event.id) }}" id="eventForm"
             enctype="multipart/form-data">
             <div class="form-group mb-3">
                 <label for="name">Event Name:</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ event.name }}" required>
+                <input type="text" id="name" name="name" class="form-control" required value="{{event.name}}">
             </div>
             <div class="form-group mb-3">
                 <label for="intro">Introduction:</label>
-                <textarea id="intro" name="intro" class="form-control" required>{{ event.intro }}</textarea>
+                <textarea id="intro" name="intro" class="form-control" required>{{event.intro}}</textarea>
             </div>
             <div class="form-group mb-3">
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" class="form-control"
-                    required>{{ event.description }}</textarea>
+                    required>{{event.description}}</textarea>
             </div>
             <div class="form-group mb-3">
                 <label for="location">Location:</label>
-                <input type="text" id="location" name="location" class="form-control" value="{{ event.location }}"
-                    required>
+                <input type="text" id="location" name="location" class="form-control" required
+                    value="{{event.location}}">
             </div>
             <div class="form-group mb-3">
                 <label for="date">Date:</label>
-                <input type="datetime-local" id="date" name="date" class="form-control"
-                    value="{{ event.date }}" required>
+                <input type="datetime-local" id="date" name="date" class="form-control" required value="{{event.date}}">
             </div>
+
             <div class="form-group mb-3">
                 <label for="end_date">End Date:</label>
-                <input type="datetime-local" id="end_date" name="end_date" class="form-control"
-                    value="{{ event.end_date }}" required>
+                <input type="datetime-local" id="end_date" name="end_date" class="form-control" required
+                    value="{{event.end_date}}">
             </div>
             <div class="form-group mb-3">
                 <label for="img">Image:</label>
-                <input type="file" id="image" name="image" value="{{event.img}}" hidden>
+                <img src="{{ event.img }}" alt="{{ event.name }}" width="100">
+                <input type="text" id="image" name="image" value="{{ event.img }}" hidden><br>
+                
                 <input type="file" id="images" name="images" pattern=".*\.(jpg|jpeg|png|gif)$"
                     title="Please upload a valid image file name (jpg, jpeg, png, gif)">
-                
-                <div class="mt-2">
-                    <p>Current Image:</p>
-                    <img src="{{ event.img }}" alt="Event Image"
-                        class="img-thumbnail" width="150">
-                </div>
-               
             </div>
             <div class="form-group mb-3">
                 <label for="category_id">Category:</label>
                 <select id="category_id" name="category_id" class="form-control">
-                    <option value="0">Please choose one category</option>
+                    <option value="">Filter by Category</option>
                     {% for category in categories %}
-                    <option value="{{ category.id }}" {% if event.category_id==category.id %}selected{% endif %}>{{
-                        category.name }}</option>
+                    <option value="{{ category.id }}" {% if event.category_id==category.id %} selected {% endif %}>
+                        {{ category.name }}
+                    </option>
                     {% endfor %}
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Update Event</button>
         </form>
-
     </div>
 </section>
 <script>
     // 设置日期时间选择器的最小值为当前日期时间
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var dateInput = document.getElementById('date');
         var endDateInput = document.getElementById('end_date');
-        
+
         var now = new Date();
         var year = now.getFullYear();
         var month = String(now.getMonth() + 1).padStart(2, '0');
         var day = String(now.getDate()).padStart(2, '0');
         var hours = String(now.getHours()).padStart(2, '0');
         var minutes = String(now.getMinutes()).padStart(2, '0');
-        
+
         var minDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
-        
+
         dateInput.setAttribute('min', minDateTime);
         endDateInput.setAttribute('min', minDateTime);
     });
 
     // 验证 category_id 是否被选择的 JS 代码
-    document.getElementById('eventForm').addEventListener('submit', function(event) {
+    document.getElementById('eventForm').addEventListener('submit', function (event) {
         var categorySelect = document.getElementById('category_id');
-        
+
         if (categorySelect.value === '0') {
             event.preventDefault();  // 阻止表单提交
             alert('Please choose a category before submitting the form.');
         }
     });
 </script>
-
 {% endblock %}

@@ -11,3 +11,4 @@ secret_key = '123456'
 url = 'http://127.0.0.1:5000'
 
 default_image = "/static/images/event/default.jpg"
+default_user_image = "/static/images/user/head.png"

@@ -1,10 +1,10 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from config.setting import Config
+from config import setting
 from services import app_service
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config.from_object(setting.Config)
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -67,6 +67,7 @@ def register():
 
         user = User(name=username, login=username, role=role)
         user.password = password  # Directly store the plain text password for now
+        user.pic = setting.default_user_image
         db.session.add(user)
         db.session.commit()
         flash('Registration successful! Please login.')
@@ -75,20 +76,40 @@ def register():
 
 @app.route('/')
 def home():
-    events = app_service.get_all_events()  # Fetch all events to display on the homepage
-    return render_template('front/home.html', events=events)
+    if current_user.is_authenticated:
+        events = app_service.get_all_events(current_user.id)  # Fetch all events to display on the homepage
+        my_events= app_service.get_my_events(current_user.id)
+        my_favorite = app_service.get_my_favorite(current_user.id)
+        return render_template('front/home.html', events=events,my_events=my_events,my_favorite=my_favorite)
+    else:
+        events = app_service.get_all_events_visit()
+        return render_template('front/home.html', events=events)
 
-@app.route('/profile', methods=['GET', 'POST'])
+@app.route('/profile/', methods=['GET', 'POST'])
 @login_required
 def profile():
+    user = app_service.get_user(current_user.id)
     if request.method == 'POST':
-        current_user.name = request.form['name']
-        current_user.pic = request.form['pic']
-        current_user.desc = request.form['desc']
-        db.session.commit()
-        flash('Profile updated successfully!')
-        return redirect(url_for('profile'))
-    return render_template('front/profile.html')
+       
+        name= request.form['name']
+        password=request.form['password']
+        role=request.form['role']
+        status=request.form['status']
+        pic=request.files['pic']
+        description=request.form['description']
+        image = request.form['image']
+
+        if pic:
+            image_path = 'static/images/user/' + pic.filename
+            pic.save(image_path)
+            image_name = '/static/images/user/' + pic.filename
+        else:
+            image_name = image
+
+        app_service.update_user(current_user.id,name,password,role,status,description,image_name)
+        flash("update user successfule")
+        return redirect(url_for('user.users_management'))
+    return render_template("admin/users/edit_user.html",user=user)
 
 @app.route('/event_dashboard')
 def event_dashboard():

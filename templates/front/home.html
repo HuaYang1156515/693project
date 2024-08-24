@@ -4,136 +4,205 @@
 
 {% block content %}
 <section id="hero">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-8 col-lg-3 offset-md-2 padding-large ps-lg-0 pe-lg-5">
-          <h2 class="display-2 fw-semibold">Great Event Planner Platform</h2>
-          <p class="secondary-font my-4 pb-2">Community Event Planner</p>
-          
-        </div>
-        <div class="col-md-6 col-lg-7 d-block d-md-none d-lg-block p-0">
-          <img src="/static/images/billboard-img.jpg" alt="img" class="img-fluid">
-        </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 col-lg-3 offset-md-2 padding-large ps-lg-0 pe-lg-5">
+        <h2 class="display-2 fw-semibold">Great Event Planner Platform</h2>
+        <p class="secondary-font my-4 pb-2">Community Event Planner</p>
+
+      </div>
+      <div class="col-md-6 col-lg-7 d-block d-md-none d-lg-block p-0">
+        <img src="/static/images/billboard-img.jpg" alt="img" class="img-fluid">
       </div>
     </div>
-  </section>
-  <section id="top-sell" class="padding-medium">
-    <div class="container">
+  </div>
+</section>
+<section id="top-sell" class="padding-medium">
+  <div class="container">
 
-      <div class="text-center mb-5">
-        <h2 class="display-5 fw-semibold">Check  <span class="text-primary">Events</span></h2>
-      
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-semibold">Check <span class="text-primary">Events</span></h2>
+
+    </div>
+
+    <div class="text-center mb-3">
+      <p class="m-0">
+        <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4  active" data-filter="*">All</button>
+        <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".digital">All Events</button>
+        <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".web">MY Joined Events</button>
+        <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".tech">MY Favorite</button>
+
+      </p>
+    </div>
+
+    <div class="isotope-container row">
+
+      <div class="item digital col-md-4 col-lg-3 my-5">
+        {% for event in events %}
+
+        <div class="card position-relative">
+          <img src="{{event.img}}" class="img-fluid rounded-3" alt="image">
+          <div class="card-body p-0">
+
+            <span class="badge text-muted bg-success mt-3 mb-1">feature</span>
+
+            <a href="{{ url_for('event.event_detail',id=event.id) }}">
+              <h5 class="py-2 m-0">{{ event.name }}</h5>
+            </a>
+
+            <div class="card-text">
+
+
+              <h4 class=" text-primary">{{ event.date }} <span class="fs-6 text-black opacity-25">{{ event.location
+                  }}</span></h4>
+
+              <div class="d-flex flex-wrap mt-2">
+                {%if event.if_my == 1 %}
+                <a href="{{ url_for('event.event_detail',id=event.id) }}"
+                  class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">Manage</a>
+                {%else%}
+                <a href="{{ url_for('event.event_detail',id=event.id) }}"
+                  class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">View</a>
+
+                {%endif%}
+              </div>
+
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="item web col-md-4 col-lg-3 my-5">
+        {% for event in my_events %}
+
+        <div class="card position-relative">
+          <img src="{{event.img}}" class="img-fluid rounded-3" alt="image">
+          <div class="card-body p-0">
+
+            <span class="badge text-muted bg-success mt-3 mb-1">feature</span>
+
+            <a href="{{ url_for('event.event_detail',id=event.id) }}">
+              <h5 class="py-2 m-0">{{ event.name }}</h5>
+            </a>
+
+            <div class="card-text">
+
+
+              <h4 class=" text-primary">{{ event.date }} <span class="fs-6 text-black opacity-25">{{
+                  event.location}}</span></h4>
+
+              <div class="d-flex flex-wrap mt-2">
+                <a href="#" onclick="quitEvent({{ event.id }})"
+                  class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">Quit Join</a>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
       </div>
 
-      <div class="text-center mb-3">
-        <p class="m-0">
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4  active" data-filter="*">All</button>
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".digital">Popular Events</button>
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".web">Best Events</button>
-          <button class="filter-button px-3 py-2 mt-2 rounded-pill me-4 " data-filter=".tech">Technology Events</button>
-        
-        </p>
-      </div>
+      <div class="item tech col-md-4 col-lg-3 my-5">
+        {% for event in my_favorite %}
 
-      <div class="isotope-container row">
-       
-        <div class="item digital col-md-4 col-lg-3 my-5">
-          {% for event in events %}
-         
-          <div class="card position-relative">
-            <a href="courses-details.html"><img src="{{event.img}}" class="img-fluid rounded-3" alt="image"></a>
-            <div class="card-body p-0">
+        <div class="card position-relative">
+          <img src="{{event.img}}" class="img-fluid rounded-3" alt="image">
+          <div class="card-body p-0">
 
-              <span class="badge text-muted bg-success mt-3 mb-1">feature</span>
+            <span class="badge text-muted bg-success mt-3 mb-1">feature</span>
 
-              <a href="courses-details.html">
-                <h5 class="py-2 m-0">{{ event.name }}</h5>
-              </a>
+            <a href="{{ url_for('event.event_detail',id=event.id) }}">
+              <h5 class="py-2 m-0">{{ event.name }}</h5>
+            </a>
 
-              <div class="card-text">
-              
+            <div class="card-text">
 
-                <h4 class=" text-primary">{{ event.date }} <span
-                    class="fs-6 text-black opacity-25">{{ event.location }}</span></h4>
 
-                <div class="d-flex flex-wrap mt-2">
-                  <a href="#" class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">Join Now</a>
-                 
-                </div>
+              <h4 class=" text-primary">{{ event.date }} <span class="fs-6 text-black opacity-25">{{ event.location
+                  }}</span></h4>
 
+              <div class="d-flex flex-wrap mt-2">
+
+                <a href="#" onclick="deleteFavorite({{ event.id }})" class="btn btn-outline-dark text-capitalize">
+                  <iconify-icon icon="mdi:heart" class="fs-5 pt-1"></iconify-icon>
+                </a>
               </div>
 
             </div>
+
           </div>
-          {% endfor %}
         </div>
-        <div class="item web col-md-4 col-lg-3 my-5">
-          {% for event in events %}
-         
-          <div class="card position-relative">
-            <a href="courses-details.html"><img src="{{event.img}}" class="img-fluid rounded-3" alt="image"></a>
-            <div class="card-body p-0">
-
-              <span class="badge text-muted bg-success mt-3 mb-1">feature</span>
-
-              <a href="courses-details.html">
-                <h5 class="py-2 m-0">{{ event.name }}</h5>
-              </a>
-
-              <div class="card-text">
-              
-
-                <h4 class=" text-primary">{{ event.date }} <span
-                    class="fs-6 text-black opacity-25">{{ event.location }}</span></h4>
-
-                <div class="d-flex flex-wrap mt-2">
-                  <a href="#" class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">Join Now</a>
-                 
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        
-        <div class="item tech col-md-4 col-lg-3 my-5">
-          {% for event in events %}
-         
-          <div class="card position-relative">
-            <a href="courses-details.html"><img src="{{event.img}}" class="img-fluid rounded-3" alt="image"></a>
-            <div class="card-body p-0">
-
-              <span class="badge text-muted bg-success mt-3 mb-1">feature</span>
-
-              <a href="courses-details.html">
-                <h5 class="py-2 m-0">{{ event.name }}</h5>
-              </a>
-
-              <div class="card-text">
-              
-
-                <h4 class=" text-primary">{{ event.date }} <span
-                    class="fs-6 text-black opacity-25">{{ event.location }}</span></h4>
-
-                <div class="d-flex flex-wrap mt-2">
-                  <a href="#" class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">Join Now</a>
-                 
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        
-
+        {% endfor %}
       </div>
 
 
     </div>
-  </section>
-    
+
+
+  </div>
+</section>
+<script>
+  function quitEvent(eventId) {
+    $.ajax({
+      url: "{{ url_for('event.quit_event') }}",  // Flask 视图的 URL
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ "event_id": eventId }),  // 发送事件 ID
+      success: function (response) {
+        if (response.success) {
+          alert('You have successfully quit the event.');
+          // 更新页面状态，例如按钮变为 "Join Now"
+        } else {
+          alert('Failed to quit the event.');
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('Error quitting event:', error);
+        alert('Failed to quit the event.');
+      }
+    });
+  };
+  function joinEvent(eventId) {
+    $.ajax({
+      url: "{{ url_for('event.join_event') }}",  // Flask 视图的 URL
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ "event_id": eventId }),  // 发送事件 ID
+      success: function (response) {
+        if (response.success) {
+          alert('You have successfully joined the event.');
+          // 更新页面状态，例如按钮变为 "Quit"
+        } else {
+          alert('Failed to join the event.');
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('Error joining event:', error);
+        alert('Failed to join the event.');
+      }
+    });
+  };
+  function deleteFavorite(eventId) {
+    $.ajax({
+      url: "{{ url_for('event.delete_favorite') }}",  // Flask 视图的 URL
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ "event_id": eventId }),  // 发送事件 ID
+      success: function (response) {
+        if (response.success) {
+          alert('Event removed from favorites.');
+          // 更新页面状态，例如恢复初始图标
+        } else {
+          alert('Failed to remove from favorites.');
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('Error removing favorite:', error);
+        alert('Failed to remove from favorites.');
+      }
+    });
+  };
+</script>
 {% endblock %}

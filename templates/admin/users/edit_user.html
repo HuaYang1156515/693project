@@ -1,16 +1,17 @@
-{% extends 'front/base.html' %}
+{% extends "admin/base.html" %}
 
-{% block title %}Profile - Community Event Planner{% endblock %}
-
+{% block title %}Admin Dashboard - Community Event Planner{% endblock %}
 {% block content %}
+
+
 <section id="banner" style="background-image:url(/static/images/background-img.jpg);">
     <div class="container padding-medium-2">
         <div class="hero-content ">
-            <h2 class="display-2 fw-semibold">Edit Profile</h2>
+            <h2 class="display-2 fw-semibold">Edit User</h2>
             <nav class="breadcrumb">
-                <a class="breadcrumb-item text-muted nav-link" href="{{url_for('home')}}">Home</a>
+                <a class="breadcrumb-item text-muted nav-link" href="{{url_for('admin.home')}}">Home</a>
 
-                <span class="breadcrumb-item active" aria-current="page">Edit Profile</span>
+                <span class="breadcrumb-item active" aria-current="page">Edit User</span>
             </nav>
         </div>
     </div>
@@ -26,7 +27,7 @@
                     <h2 class="display-5 fw-semibold"> Edit <span class="text-primary">User</span></h2>
 
                 </div>
-                <form action="{{ url_for('profile', user_id=user.id) }}" method="POST"
+                <form action="{{ url_for('user.edit_user', user_id=user.id) }}" method="POST"
                     enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">User Name:</label>
@@ -66,7 +67,7 @@
                             rows="4">{{ user.description }}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Update User</button>
-                    <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancel</a>
+                    <a href="{{ url_for('user.users_management') }}" class="btn btn-secondary">Cancel</a>
                 </form>
 
             </div>
@@ -74,4 +75,5 @@
         </div>
     </div>
 </section>
+
 {% endblock %}

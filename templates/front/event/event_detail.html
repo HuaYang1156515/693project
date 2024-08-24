@@ -1,27 +1,116 @@
-{% extends 'base.html' %}
+{% extends 'front/base.html' %}
 
-{% block title %}Event Details - Community Event Planner{% endblock %}
+{% block title %}Event Dashboard - Community Event Planner{% endblock %}
 
 {% block content %}
-    <div class="card">
-        <div class="card-body">
-            <h1 class="card-title">{{ event.name }}</h1>
-            <p class="card-text">{{ event.description }}</p>
-            <p><strong>Date:</strong> {{ event.date }}</p>
-            <p><strong>Location:</strong> {{ event.location }}</p>
+<section id="banner" style="background-image:url(/static/images/background-img.jpg);">
+    <div class="container padding-medium-2">
+        <div class="hero-content ">
+            <h2 class="display-2 fw-semibold">Event <span class="text-primary">Details</span></h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item text-muted nav-link" href="{{url_for('admin.home')}}">Home</a>
 
-            {% if current_user.is_authenticated %}
-                <!-- Form for registering for the event -->
-                <form action="{{ url_for('event_bp.register_event', event_id=event.id) }}" method="POST">
-                    <!-- Button to submit the form -->
-                    <button type="submit" class="btn btn-primary">Register for this Event</button>
-                </form>
-            {% else %}
-                <!-- Link to the login page if the user is not logged in -->
-                <a href="{{ url_for('login') }}" class="btn btn-secondary">
-                    Login to Register
-                </a>
-            {% endif %}
+                <span class="breadcrumb-item active" aria-current="page">Event Details</span>
+            </nav>
         </div>
     </div>
+</section>
+
+<div class="container padding-medium">
+    <h2 class="display-5 fw-semibold">{{event.name}}</h2>
+    <div class="d-md-flex mt-2 mb-5">
+        <div><iconify-icon icon="lets-icons:date-today" class="text-primary fs-5 pt-1"
+                style="vertical-align: sub;"></iconify-icon> {{event.date}}</div>
+        <div class=" align-self-end fs-5">&nbsp; | &nbsp;</div>
+        <div><iconify-icon icon="lets-icons:date-today" class="text-primary fs-5 pt-1"
+                style="vertical-align: sub;"></iconify-icon> {{event.end_date}}</div>
+        <div class=" align-self-end fs-5">&nbsp; | &nbsp;</div>
+        <div><iconify-icon icon="mdi:location" class="text-primary fs-5 pt-1"
+                style="vertical-align: sub;"></iconify-icon> {{event.location}}</div>
+    </div>
+    <img src="{{event.img}}" alt="single-post" class="img-fluid">
+  
+</div>
+
+<div class="post-wrap">
+    <div class="container">
+        <div class="row g-md-5">
+            <main class="post-grid col-md-8">
+                <div class="post-description">
+                    {{event.intro}}
+                </div>
+                <div class="post-description">
+                    {{event.description}}
+                </div>
+
+                <div class="mt-5">
+                    <h4>Event Location</h4>
+                    <div class="mb-4 fs-6"><iconify-icon icon="mdi:location" class="text-primary fs-5 "
+                            style="vertical-align: sub;"></iconify-icon> {{event.location}}</div>
+                    <div class="mapouter">
+                        <div class="gmap_canvas"><iframe width="100%" height="500" id="gmap_canvas"
+                                src="https://www.amap.com/" sandbox="" frameborder="0" scrolling="no" marginheight="0"
+                                marginwidth="0"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+                {%if event.registration_status == '0' %}
+                <a href="#" onclick="quitEvent({{ event.id }})"
+                    class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">Cancel</a>
+                {%else%}
+                <a href="#" onclick="joinEvent({{ event.id }})"
+                    class=" btn btn-outline-dark text-capitalize me-2 px-4 py-3">Join</a>
+                {%endif%}
+            </main>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    function joinEvent(eventId) {
+        $.ajax({
+            url: "{{ url_for('event.join_event') }}",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ "event_id": eventId }),
+            success: function (response) {
+                if (response.success) {
+                    alert('You have successfully joined the event.');
+                    location.reload();
+                    // 更新页面状态
+                } else {
+                    alert('Failed to join the event.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error joining event:', error);
+                alert('Failed to join the event.');
+            }
+        });
+    };
+    function quitEvent(eventId) {
+        $.ajax({
+            url: "{{ url_for('event.quit_event') }}",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ "event_id": eventId }),
+            success: function (response) {
+                if (response.success) {
+                    alert('You have successfully quit the event.');
+                    location.reload();
+                    // 更新页面状态
+                } else {
+                    alert('Failed to quit the event.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error quitting event:', error);
+                alert('Failed to quit the event.');
+            }
+        });
+    };
+</script>
+
 {% endblock %}

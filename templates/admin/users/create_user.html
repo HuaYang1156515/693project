@@ -1,16 +1,17 @@
-{% extends 'front/base.html' %}
+{% extends "admin/base.html" %}
 
-{% block title %}Profile - Community Event Planner{% endblock %}
-
+{% block title %}Admin Dashboard - Community Event Planner{% endblock %}
 {% block content %}
+
+
 <section id="banner" style="background-image:url(/static/images/background-img.jpg);">
     <div class="container padding-medium-2">
         <div class="hero-content ">
-            <h2 class="display-2 fw-semibold">Edit Profile</h2>
+            <h2 class="display-2 fw-semibold">Create User</h2>
             <nav class="breadcrumb">
-                <a class="breadcrumb-item text-muted nav-link" href="{{url_for('home')}}">Home</a>
+                <a class="breadcrumb-item text-muted nav-link" href="{{url_for('admin.home')}}">Home</a>
 
-                <span class="breadcrumb-item active" aria-current="page">Edit Profile</span>
+                <span class="breadcrumb-item active" aria-current="page">Create User</span>
             </nav>
         </div>
     </div>
@@ -22,51 +23,44 @@
                 <img src="/static/images/bg1.jpeg" alt="img" class="img-fluid">
             </div>
             <div class="col-md-4 ">
-                <div class="mb-5 mt-5 mt-lg-0">
-                    <h2 class="display-5 fw-semibold"> Edit <span class="text-primary">User</span></h2>
-
-                </div>
-                <form action="{{ url_for('profile', user_id=user.id) }}" method="POST"
+             
+                <form action="{{ url_for('user.create_user') }}" method="POST"
                     enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">User Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" required>
+                        <input type="text" class="form-control" id="name" name="name"  required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password"
-                            value="{{ user.password }}">
+                        <input type="password" class="form-control" id="password" name="password" required>
 
                     </div>
                     <div class="form-group">
                         <label for="role">Role:</label>
                         <select class="form-control" id="role" name="role" required>
-                            <option value="admin" {% if user.role=='admin' %}selected{% endif %}>Admin</option>
-                            <option value="user" {% if user.role=='user' %}selected{% endif %}>User</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="status">Status:</label>
                         <select class="form-control" id="status" name="status" required>
-                            <option value="0" {% if user.status==0 %}selected{% endif %}>Active</option>
-                            <option value="1" {% if user.status==1 %}selected{% endif %}>Inactive</option>
+                            <option value="0">Active</option>
+                            <option value="1">Inactive</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="pic">Profile Picture:</label>
-                        <img src="{{ user.pic }}" alt="{{ user.name }}" width="100">
-                        <input type="text" id="image" name="image" value="{{ user.pic }}" hidden><br>
-                        <br>
-
+                    
                         <input type="file" class="form-control-file" id="pic" name="pic">
                     </div>
                     <div class="form-group">
                         <label for="description">Description:</label>
                         <textarea class="form-control" id="description" name="description"
-                            rows="4">{{ user.description }}</textarea>
+                            rows="4"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update User</button>
-                    <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Create User</button>
+                    <a href="{{ url_for('user.users_management') }}" class="btn btn-secondary">Cancel</a>
                 </form>
 
             </div>
@@ -74,4 +68,5 @@
         </div>
     </div>
 </section>
+
 {% endblock %}

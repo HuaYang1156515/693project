@@ -24,12 +24,17 @@
         </div>
         <div class="col-md-4 ">
           <div class="mb-5 mt-5 mt-lg-0">
-            <h2 class="display-5 fw-semibold"> Create <span class="text-primary">New Category</span></h2>
+            <h2 class="display-5 fw-semibold"> Edit <span class="text-primary">Category</span></h2>
             
           </div>
           <form id="form" action="{{ url_for('category.edit_category',id =category.id) }}" method="post">
             <label>Category Name</label>
             <input type="text" name="name" value="{{category.name}}" class="form-control w-100 mb-4">
+            <label>Category Status:</label>
+            <select name="status">
+              <option value="0" {% if category.status == 0 %}selected{% endif %}>Normal</option>
+              <option value="1" {% if category.status == 1 %}selected{% endif %}>Offline</option>
+            </select>
             <button class="btn btn-primary px-5 py-3 mt-2" type="submit"> Submit</button>
           </form>
 

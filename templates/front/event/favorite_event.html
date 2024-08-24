@@ -11,7 +11,7 @@
 
     </div>
 
-    <form action="{{ url_for('event.event_management') }}" method="GET">
+    <form action="{{ url_for('event.favorite_event') }}" method="GET">
       <div class="row mb-4">
         <div class="col-md-4">
           <input type="text" id="search-input" name="search" class="form-control"
@@ -37,7 +37,7 @@
 
       <div class="text-center mb-4">
         <button type="submit" class="btn btn-primary me-2">Filter</button>
-        <a href="{{ url_for('event.event_management') }}" class="btn btn-secondary">Reset</a>
+        <a href="{{ url_for('event.favorite_event') }}" class="btn btn-secondary">Reset</a>
       </div>
     </form>
 
@@ -66,7 +66,9 @@
               <td>{{ event.if_my }}</td>
               <td>
                 <a href="{{ url_for('event.event_detail', id=event.id) }}" class="btn btn-outline-dark text-capitalize"
-                  target="_blank">View</a>  
+                  target="_blank">View</a>
+                  <a href="#" class="btn btn-outline-dark text-capitalize" id="cancel-event"
+                  data-event-id="{{ event.id }}">Remove</a>
               </td>
             </tr>
             {% endfor %}
@@ -84,21 +86,21 @@
             {% if pagination.page > 1 %}
             <li class="page-item">
               <a class="page-link"
-                href="{{ url_for('event.event_management', page=pagination.page - 1, category=request.args.get('category'), search=request.args.get('search')) }}">Previous</a>
+                href="{{ url_for('event.favorite_event', page=pagination.page - 1, category=request.args.get('category'), search=request.args.get('search')) }}">Previous</a>
             </li>
             {% endif %}
   
             {% for page_num in range(1, pagination.num_pages + 1) %}
             <li class="page-item">
               <a class="page-link"
-                href="{{ url_for('event.event_management', page=page_num, category=request.args.get('category'), search=request.args.get('search')) }}">{{
+                href="{{ url_for('event.favorite_event', page=page_num, category=request.args.get('category'), search=request.args.get('search')) }}">{{
                 page_num }}</a>
             </li>
             {% endfor %}
   
             {% if pagination.page < pagination.num_pages %} <li class="page-item">
               <a class="page-link"
-                href="{{ url_for('event.event_management', page=pagination.page + 1, category=request.args.get('category'), search=request.args.get('search')) }}">Next</a>
+                href="{{ url_for('event.favorite_event', page=pagination.page + 1, category=request.args.get('category'), search=request.args.get('search')) }}">Next</a>
               </li>
               {% endif %}
           </ul>
@@ -109,5 +111,27 @@
 
   </div>
 </section>
-
+<script>
+  function deleteFavorite(eventId) {
+    $.ajax({
+        url: "{{ url_for('event.delete_favorite') }}",  // Flask 视图的 URL
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ "event_id": eventId }),  // 发送事件 ID
+        success: function (response) {
+            if (response.success) {
+                alert('Event removed from favorites.');
+                location.reload();
+                // 更新页面状态，例如恢复初始图标
+            } else {
+                alert('Failed to remove from favorites.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error removing favorite:', error);
+            alert('Failed to remove from favorites.');
+        }
+    });
+}
+</script>
 {% endblock %}

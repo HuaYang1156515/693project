@@ -1,0 +1,70 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Admin Dashboard - Community Event Planner{% endblock %}
+{% block content %}
+
+
+<section id="banner" style="background-image:url(images/background-img.jpg);">
+    <div class="container padding-medium-2">
+        <div class="hero-content ">
+            <h2 class="display-2 fw-semibold"><span class="text-primary">Users Management</span> </h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item text-muted nav-link" href="{{url_for('admin.home')}}">Home</a>
+                
+                <span class="breadcrumb-item active" aria-current="page">Users Management</span>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section id="course" class="padding-medium">
+    <div class="container">
+        <div class="mb-5 mt-5 mt-lg-0">
+            <h2 class="display-5 fw-semibold">  <span class="text-primary">Users List</span></h2>
+            
+          </div>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Login</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Picture</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in users %}
+                    <tr>
+                        <td>{{ c.name }}</td>
+                        <td>{{ c.login }}</td>
+                        <td>{{ c.role }}</td>
+                        <td>{{ c.status }}</td>
+                        <td>
+                            {% if c.pic %}
+                                <img src="{{  c.pic}}" alt="{{ c.name }}" width="50">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>{{ c.description }}</td>
+                        <td>{{ c.created_at }}</td>
+                        <td>
+                            <a href="{{ url_for('user.edit_user', user_id=c.id) }}">Edit</a> |
+                            
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            
+        </div>
+    </div>
+</section>
+
+{% endblock %}
