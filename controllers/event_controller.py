@@ -76,13 +76,13 @@ def create_event():
         end_date=request.form['end_date']
         intro = request.form['intro']
         category_id=request.form['category_id']
-        image = request.files['images']
-        img = request.form['image']
+        image = request.files['image']
+       
         if image:
             image.save('static/images/event/' + image.filename)
             image_name= '/static/images/event/'+ image.filename
         else:
-            image_name = img
+            image_name = setting.default_image
         event_service.update_event(name, description, location, date,end_date,category_id,intro,image_name,current_user.id)
         flash("Created event successful")
         return redirect(url_for('event.event_management'))
