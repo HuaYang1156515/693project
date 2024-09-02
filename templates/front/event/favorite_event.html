@@ -67,8 +67,8 @@
               <td>
                 <a href="{{ url_for('event.event_detail', id=event.id) }}" class="btn btn-outline-dark text-capitalize"
                   target="_blank">View</a>
-                  <a href="#" class="btn btn-outline-dark text-capitalize" id="cancel-event"
-                  data-event-id="{{ event.id }}">Remove</a>
+                  <a href="#" class="btn btn-outline-dark text-capitalize" onclick="removeEvent({{ event.id }})"
+                  id="cancel-event" data-event-id="{{ event.id }}">Remove my favorite</a>
               </td>
             </tr>
             {% endfor %}
@@ -112,26 +112,33 @@
   </div>
 </section>
 <script>
-  function deleteFavorite(eventId) {
-    $.ajax({
-        url: "{{ url_for('event.delete_favorite') }}",  // Flask 视图的 URL
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({ "event_id": eventId }),  // 发送事件 ID
-        success: function (response) {
-            if (response.success) {
-                alert('Event removed from favorites.');
-                location.reload();
-                // 更新页面状态，例如恢复初始图标
-            } else {
-                alert('Failed to remove from favorites.');
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error('Error removing favorite:', error);
-            alert('Failed to remove from favorites.');
+  function removeEvent(eventId) {
+    console.log("Clicked event ID:", eventId); // 输出ID以检查
+    if (!eventId || isNaN(eventId)) {
+      console.error("Invalid event ID");
+      return;
+    }
+
+    const url = `/event/delete_favorite/${eventId}`;
+    console.log("Generated URL:", url); // 输出URL以检查
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({})
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log("Event remove successfully");
+          alert('Event set to offline successfully!'); // 显示成功消息
+          location.reload(); // 刷新页面
+        } else {
+          response.json().then(data => console.error("Error response:", data));
         }
-    });
-}
+      })
+      .catch(error => console.error("Fetch error:", error));
+  }
 </script>
 {% endblock %}
