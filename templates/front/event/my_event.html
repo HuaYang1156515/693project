@@ -3,46 +3,47 @@
 {% block title %}Event List - Community Event Planner{% endblock %}
 
 {% block content %}
-<section id="top-sell" class="padding-medium">
+
+
+<section id="course" class="padding-medium">
   <div class="container">
 
     <div class="text-center mb-5">
       <h2 class="display-5 fw-semibold"><span class="text-primary">Events List</span></h2>
+    </div>
+    <div class=" row">
+      <form action="{{ url_for('event.my_event') }}" method="GET">
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <input type="text" id="search-input" name="search" class="form-control"
+              placeholder="Search by Location or Date" value="{{ request.args.get('search', '') }}">
+          </div>
+          <div class="col-md-4">
+            <select id="location-date-select" name="filter" class="form-control">
+              <option value="location" {% if request.args.get('filter')=='location' %}selected{% endif %}>Location
+              </option>
+              <option value="date" {% if request.args.get('filter')=='date' %}selected{% endif %}>Date</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <select id="category-select" name="category" class="form-control">
+              <option value="">Filter by Category</option>
+              {% for category in categories %}
+              <option value="{{ category.id }}" {% if request.args.get('category')==category.id %}selected{% endif %}>{{
+                category.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
 
+        <div class="text-center mb-4">
+          <button type="submit" class="btn btn-primary me-2">Filter</button>
+          <a href="{{ url_for('event.my_event') }}" class="btn btn-secondary">Reset</a>
+        </div>
+      </form>
     </div>
 
-    <form action="{{ url_for('event.my_event') }}" method="GET">
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <input type="text" id="search-input" name="search" class="form-control"
-            placeholder="Search by Location or Date" value="{{ request.args.get('search', '') }}">
-        </div>
-        <div class="col-md-4">
-          <select id="location-date-select" name="filter" class="form-control">
-            <option value="location" {% if request.args.get('filter')=='location' %}selected{% endif %}>Location
-            </option>
-            <option value="date" {% if request.args.get('filter')=='date' %}selected{% endif %}>Date</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <select id="category-select" name="category" class="form-control">
-            <option value="">Filter by Category</option>
-            {% for category in categories %}
-            <option value="{{ category.id }}" {% if request.args.get('category')==category.id %}selected{% endif %}>{{
-              category.name }}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-
-      <div class="text-center mb-4">
-        <button type="submit" class="btn btn-primary me-2">Filter</button>
-        <a href="{{ url_for('event.my_event') }}" class="btn btn-secondary">Reset</a>
-      </div>
-    </form>
-
-
-    <div class="isotope-container row" id="events-container">
+    
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
@@ -67,13 +68,14 @@
               <td>
                 <a href="{{ url_for('event.event_detail', id=event.id) }}" class="btn btn-outline-dark text-capitalize"
                   target="_blank">View</a>
-                  {%if event.status == '0'%}
-                <a href="#" class="btn btn-outline-dark text-capitalize" id="cancel-event"
-                  data-event-id="{{ event.id }}">Offline</a>
-                  {%elif event.status == '1'%}
-                  <a href="#" class="btn btn-outline-dark text-capitalize" id="cancel-event"
-                  data-event-id="{{ event.id }}">online</a>
-                  {%endif%}
+                {%if event.status == '0'%}
+                <a href="#" class="btn btn-outline-dark text-capitalize" onclick="setEventOffline({{ event.id }})"
+                  id="cancel-event" data-event-id="{{ event.id }}">Offline</a>
+                {%elif event.status == '1'%}
+
+                <a href="#" class="btn btn-outline-dark text-capitalize" onclick="setEventOnline({{ event.id }})"
+                  id="online-event" data-event-id="{{ event.id }}">Online</a>
+                {%endif%}
                 <a href="{{ url_for('event.edit_event', id=event.id) }}"
                   class="btn btn-outline-dark text-capitalize">Edit</a>
               </td>
@@ -96,7 +98,7 @@
                 href="{{ url_for('event.my_event', page=pagination.page - 1, category=request.args.get('category'), search=request.args.get('search')) }}">Previous</a>
             </li>
             {% endif %}
-  
+
             {% for page_num in range(1, pagination.num_pages + 1) %}
             <li class="page-item">
               <a class="page-link"
@@ -104,7 +106,7 @@
                 page_num }}</a>
             </li>
             {% endfor %}
-  
+
             {% if pagination.page < pagination.num_pages %} <li class="page-item">
               <a class="page-link"
                 href="{{ url_for('event.my_event', page=pagination.page + 1, category=request.args.get('category'), search=request.args.get('search')) }}">Next</a>
@@ -113,10 +115,70 @@
           </ul>
         </nav>
       </div>
-    </div>
     
+
 
   </div>
 </section>
+<script>
 
+  function setEventOffline(eventId) {
+    console.log("Clicked event ID:", eventId); // 输出ID以检查
+    if (!eventId || isNaN(eventId)) {
+      console.error("Invalid event ID");
+      return;
+    }
+
+    const url = `/event/offline/${eventId}`;
+    console.log("Generated URL:", url); // 输出URL以检查
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({})
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log("Event set to offline successfully");
+          alert('Event set to offline successfully!'); // 显示成功消息
+          location.reload(); // 刷新页面
+        } else {
+          response.json().then(data => console.error("Error response:", data));
+        }
+      })
+      .catch(error => console.error("Fetch error:", error));
+  }
+  function setEventOnline(eventId) {
+    console.log("Clicked event ID:", eventId); // 输出ID以检查
+    if (!eventId || isNaN(eventId)) {
+      console.error("Invalid event ID");
+      return;
+    }
+
+    const url = `/event/online/${eventId}`;
+    console.log("Generated URL:", url); // 输出URL以检查
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({})
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log("Event set to online successfully");
+          alert('Event set to online successfully!'); // 显示成功消息
+          location.reload(); // 刷新页面
+        } else {
+          response.json().then(data => console.error("Error response:", data));
+        }
+      })
+      .catch(error => console.error("Fetch error:", error));
+  }
+
+
+</script>
 {% endblock %}

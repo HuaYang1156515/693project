@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify,render_template,flash,redirect,url_for
 from services import user_service
 from config import setting
+
+
 user_bp = Blueprint('user', __name__)
 
 @user_bp.route('/user/<int:user_id>', methods=['GET'])

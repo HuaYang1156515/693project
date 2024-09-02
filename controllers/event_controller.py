@@ -24,17 +24,24 @@ def event_management():
     # 构建基础查询语句
     base_query = f"""
     SELECT 
-        e.*,
-        CASE 
-            WHEN e.author_id = {user_id} THEN 1
-            WHEN er.user_id = {user_id} THEN 2
-            ELSE 0
-        END AS if_my
-    FROM 
-        events e
-    LEFT JOIN 
-        event_registrations er ON e.id = er.event_id AND er.user_id = {user_id}
-    WHERE 1=1
+    e.*,
+    CASE 
+        WHEN e.author_id = {user_id} THEN 1
+        WHEN er.user_id = {user_id} THEN 2
+        ELSE 0
+    END AS if_my,
+    CASE 
+        WHEN f.event_id IS NOT NULL THEN 1
+        ELSE 0
+    END AS if_f
+FROM 
+    events e
+LEFT JOIN 
+    event_registrations er ON e.id = er.event_id AND er.user_id = {user_id}
+LEFT JOIN 
+    favorites f ON e.id = f.event_id AND f.user_id = {user_id}  -- 加入判断是否在favorite表中
+WHERE 
+    1=1
     """
     total_sql = f"SELECT COUNT(*) AS total_count FROM ({base_query}) AS total"
 
@@ -204,20 +211,18 @@ def quit_event():
     event_service.delete_register(event_id, current_user.id)
     return jsonify({'success': True}), 200
 
-@event_bp.route('/add_favorite', methods=['POST'])
+@event_bp.route('/add_favorite/<int:id>', methods=['POST'])
 @login_required
-def add_favorite():
-    data = request.json
-    event_id = data.get('event_id')
-    event_service.add_favorite(event_id, current_user.id)
+def add_favorite(id):
+   
+    event_service.add_favorite(id, current_user.id)
     return jsonify({'success': True}), 200
 
-@event_bp.route('/delete_favorite', methods=['POST'])
+@event_bp.route('/delete_favorite/<int:id>', methods=['POST'])
 @login_required
-def delete_favorite():
-    data = request.json
-    event_id = data.get('event_id')
-    event_service.delete_favorite(event_id, current_user.id)
+def delete_favorite(id):
+   
+    event_service.delete_favorite(id, current_user.id)
     return jsonify({'success': True}), 200
 
 @event_bp.route('/join_event', methods=['POST'])
@@ -233,17 +238,14 @@ def join_event():
 @event_bp.route('/offline/<int:id>', methods=['POST'])
 @login_required
 def offline(id):
-    event = Event.query.get_or_404(id)
-    event.status = 1  # 设置为下线
-    db.session.commit()
+   
+    event_service.update_event_status(id,1)
     return jsonify({'success': True}), 200
 
 @event_bp.route('/online/<int:id>', methods=['POST'])
 @login_required
 def online(id):
-    event = Event.query.get_or_404(id)
-    event.status = 0  # 设置为上线
-    db.session.commit()
+    event_service.update_event_status(id,0)
     return jsonify({'success': True}), 200
 
 

@@ -154,3 +154,10 @@ def query_workshop_cal():
         events
     """
     return DbText.query_all(sql)
+
+
+def  update_event_status(id,status):
+    sql =f"""update events set status = '{status}' where id ='{id}'"""
+    DbText.db_execute(sql)
+    return True
+ 

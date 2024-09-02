@@ -42,7 +42,7 @@
     </form>
 
 
-    <div class="isotope-container row" id="events-container">
+    
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
@@ -67,6 +67,14 @@
               <td>
                 <a href="{{ url_for('event.event_detail', id=event.id) }}" class="btn btn-outline-dark text-capitalize"
                   target="_blank">View</a>  
+
+                  {%if event.if_f == 1 %}
+                  <a href="#" class="btn btn-outline-dark text-capitalize" onclick="removeEvent({{ event.id }})"
+                  id="cancel-event" data-event-id="{{ event.id }}">Remove my favorite</a>
+                  {%elif event.if_f == 0%}
+                  <a href="#" class="btn btn-outline-dark text-capitalize" onclick="addEvent({{ event.id }})"
+                  id="cancel-event" data-event-id="{{ event.id }}">Add my favorite</a>
+                  {%endif%}
               </td>
             </tr>
             {% endfor %}
@@ -104,10 +112,70 @@
           </ul>
         </nav>
       </div>
-    </div>
+   
     
 
   </div>
 </section>
+<script>
 
+  function removeEvent(eventId) {
+    console.log("Clicked event ID:", eventId); // 输出ID以检查
+    if (!eventId || isNaN(eventId)) {
+      console.error("Invalid event ID");
+      return;
+    }
+
+    const url = `/event/delete_favorite/${eventId}`;
+    console.log("Generated URL:", url); // 输出URL以检查
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({})
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log("Event remove successfully");
+          alert('Event set to offline successfully!'); // 显示成功消息
+          location.reload(); // 刷新页面
+        } else {
+          response.json().then(data => console.error("Error response:", data));
+        }
+      })
+      .catch(error => console.error("Fetch error:", error));
+  }
+  function addEvent(eventId) {
+    console.log("Clicked event ID:", eventId); // 输出ID以检查
+    if (!eventId || isNaN(eventId)) {
+      console.error("Invalid event ID");
+      return;
+    }
+
+    const url = `/event/add_favorite/${eventId}`;
+    console.log("Generated URL:", url); // 输出URL以检查
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({})
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log("Event add to favorite successfully");
+          alert('Event set to online successfully!'); // 显示成功消息
+          location.reload(); // 刷新页面
+        } else {
+          response.json().then(data => console.error("Error response:", data));
+        }
+      })
+      .catch(error => console.error("Fetch error:", error));
+  }
+
+
+</script>
 {% endblock %}
