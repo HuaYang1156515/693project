@@ -90,7 +90,7 @@ def create_event():
             image_name= '/static/images/event/'+ image.filename
         else:
             image_name = setting.default_image
-        event_service.update_event(name, description, location, date,end_date,category_id,intro,image_name,current_user.id)
+        event_service.create_event(name, description, location, date,end_date,category_id,intro,image_name,current_user.id)
         flash("Created event successful")
         return redirect(url_for('event.event_management'))
     return render_template("front/event/create_event.html",categories=categories)
