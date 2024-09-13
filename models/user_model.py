@@ -12,7 +12,8 @@ class User(UserMixin, db.Model):
     status = db.Column(db.String(2), default='1', nullable=False)
     pic = db.Column(db.String(255), nullable=True)
     description = db.Column(db.String(255), nullable=True)
-
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
+    
     def get_id(self):
         return self.id
 
