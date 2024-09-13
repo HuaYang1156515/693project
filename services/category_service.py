@@ -11,21 +11,17 @@ def create_category(name):
     return True
 
 def update_category(category_id, name=None, status=None):
-    category = get_category_by_id(category_id)
-    if category:
-        if name:
-            category.name = name
-        if status is not None:
-            category.status = status
-        db.session.commit()
-    return category
+    sql =f"""UPDATE categories SET 
+    name = '{name}',
+    status = '{status}' WHERE id = '{category_id}';"""
+    DbText.db_execute(sql)
+    return True
 
 def delete_category(category_id):
-    category = get_category_by_id(category_id)
-    if category:
-        db.session.delete(category)
-        db.session.commit()
-    return category
+    sql = f"""DELETE FROM categories
+WHERE id = '{category_id}' ;"""
+    DbText.db_execute(sql)
+    return True
 
 def get_all_categories():
     sql = """select * from categories"""
