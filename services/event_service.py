@@ -79,7 +79,7 @@ WHERE
 
 def create_event(name, description, location, date,end_date,category_id,intro,image_name,user_id):
     sql = """
-    INSERT INTO Events (name, description, location, date, end_date, category_id, author_id,intro,img)
+    INSERT INTO events (name, description, location, date, end_date, category_id, author_id,intro,img)
     VALUES (%s, %s, %s, %s, %s, %s, %s,%s,%s);"""
     values = (name, description, location, date, end_date , category_id,user_id,intro,image_name)
 
