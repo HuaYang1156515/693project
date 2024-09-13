@@ -33,6 +33,6 @@ def edit_category(id):
 def delete_category():
     data = request.json  # 获取从前端传递的数据
     category_id = data.get('id')  # 提取类别ID
-    category_service.delete_category(id)
+    category_service.delete_category(category_id)
     return jsonify({'success': True}), 200
 
