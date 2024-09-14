@@ -1,0 +1,97 @@
+{% extends 'front/base.html' %}
+
+{% block title %}Event Dashboard - Community Event Planner{% endblock %}
+
+{% block content %}
+
+<section id="banner" style="background-image:url(/static/images/background-img.jpg);">
+    <div class="container padding-medium-2">
+      <div class="hero-content ">
+        <h2 class="display-2 fw-semibold">About <span class="text-primary"> Us</span></h2>
+        <nav class="breadcrumb">
+          <a class="breadcrumb-item text-muted nav-link" href="#">Home</a>
+          <a class="breadcrumb-item text-muted nav-link" href="#">Pages</a>
+          <span class="breadcrumb-item active" aria-current="page">About Us</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <div class="my-5 py-5">
+    <div class="container">
+      <div class="row ">
+        <div class="col-md-6 my-4 pe-5">
+          <h2 class="">How Events Started </h2>
+          <p>Browse various fun activities and choose the one you like</p>
+          <a href="{{url_for('event.event_management')}}" class="btn btn-primary py-3 px-5"> Browse Events  </a>
+        </div>
+        <div class="col-md-6 my-4 ">
+          <h2 class="">More About Us </h2>
+          <p>We are a professional event organizing website</p>
+          <p class="m-0 mb-2"> <span class="text-primary">✓</span> professional</p>
+          <p class="m-0 mb-2"> <span class="text-primary">✓</span> Interesting</p>
+          <p class="m-0 mb-2"> <span class="text-primary">✓</span> Good
+          </p>
+          <p class="m-0 mb-2"> <span class="text-primary">✓</span> More
+            viverra.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-5 pb-5">
+    <div class="container">
+      <div class="row ">
+        <div class="col-md-6">
+          <h2 class="display-3 fw-semibold ">Enjoy various activities with <span class="text-primary">friends</span>
+          </h2>
+        </div>
+        <div class="col-md-6">
+          <p>XXXXXXX  XXXXXXXXXXXXXX XXXXXXXXXXXXX</p>
+          <p>XXXXXXXXX XXXXXXXXXXXXX  XXXXXXXXXXXXXXX</p>
+          <p>XXXXXXXXXXXXXXX  XXXXXXXXXXXXX XXXXXXXXXXXXX XXXXXXXX</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="achivement" style="background-color: #f5f5f5;">
+    <div class="container padding-medium">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="text-center">
+            <img src="/static/images/topic.png" alt="img" class="img-fluid">
+            <h4 class="py-2 mt-3 m-0">300+ Events</h4>
+            <p class="text-uppercase">choose your choice</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-center">
+            <img src="/static/images/student.png" alt="img" class="img-fluid">
+            <h4 class="py-2 mt-3 m-0">1000+ Members</h4>
+            <p class="text-uppercase">bright future</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-center">
+            <img src="/static/mages/instruction.png" alt="img" class="img-fluid">
+            <h4 class="py-2 mt-3 m-0">300+ Companys</h4>
+            <p class="text-uppercase">Professional organizer</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-center">
+            <img src="/static/images/award.png" alt="img" class="img-fluid">
+            <h4 class="py-2 mt-3 m-0">120+ World Events</h4>
+            <p class="text-uppercase">hard process</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  {% endblock %}

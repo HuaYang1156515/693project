@@ -29,7 +29,7 @@ def edit_category(id):
         return redirect(url_for('category.category_management'))
     return render_template("admin/category/edit_category.html",category=category)
 
-@category_bp.route('/delete_category', methods=['POST'])  # 将方法改为 'POST'
+@category_bp.route('/delete_category', methods=['POST'])  
 def delete_category():
     data = request.json  # 获取从前端传递的数据
     category_id = data.get('id')  # 提取类别ID

@@ -116,6 +116,14 @@ def event_dashboard():
     events = app_service.get_all_events()
     return render_template('event_dashboard.html', events=events)
 
+@app.route('/contact')
+def contact ():
+    return render_template('front/help/contact.html')
+
+
+@app.route('/about')
+def about ():
+    return render_template('front/help/about.html')
 
 
 if __name__ == "__main__":

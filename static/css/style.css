@@ -455,7 +455,7 @@ a {
   color: var(--grey-color);
   line-height: normal;
   letter-spacing: 0.02125rem;
-  text-transform: capitalize;
+ 
   border-radius: 0.25rem;
   border: 1px solid #e8e8e8;
   background: var(--light-grey-color);

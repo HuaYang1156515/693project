@@ -1,0 +1,76 @@
+{% extends 'front/base.html' %}
+
+{% block title %}Event Dashboard - Community Event Planner{% endblock %}
+
+{% block content %}
+
+<section id="banner" style="background-image:url(/static/images/background-img.jpg);"></section>
+    <div class="container padding-medium-2">
+      <div class="hero-content ">
+        <h2 class="display-2 fw-semibold">Contact <span class="text-primary"> Us</span></h2>
+        <nav class="breadcrumb">
+          <a class="breadcrumb-item text-muted nav-link" href="#">Home</a>
+          <a class="breadcrumb-item text-muted nav-link" href="#">Pages</a>
+          <span class="breadcrumb-item active" aria-current="page">Contact Us</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-us padding-medium">
+    <div class="container">
+      <div class="row">
+        <div class="contact-info col-lg-6">
+          <h2>Contact Information</h2>
+          <p>Tortor dignissim convallis aenean et tortor at risus viverra adipiscing.</p>
+          <div class="page-content d-flex flex-wrap mt-5">
+            <div class="col-lg-6 col-sm-12">
+              <div class="content-box text-dark pe-4 mb-5">
+                <h4 class="card-title">Office</h4>
+                <div class="contact-address pt-3">
+                  <p>730 Glenstone Ave 65802, Springfield, US</p>
+                </div>
+                <div class="contact-number">
+                  <p>
+                    <a href="#">+123 987 321</a>
+                  </p>
+                  <p>
+                    <a href="#">+123 123 654</a>
+                  </p>
+                </div>
+                <div class="email-address">
+                  <p>
+                    <a href="#">contactoffice@website.com</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+              <div class="content-box text-dark">
+                <h4 class="card-title">Management</h4>
+                <div class="contact-address pt-3">
+                  <p>730 Glenstone Ave 65802, Springfield, US</p>
+                </div>
+                <div class="contact-number">
+                  <p>
+                    <a href="#">+123 987 321</a>
+                  </p>
+                  <p>
+                    <a href="#">+123 123 654</a>
+                  </p>
+                </div>
+                <div class="email-address">
+                  <p>
+                    <a href="#">contactmanagement@website.com</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}
