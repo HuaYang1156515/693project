@@ -36,6 +36,9 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(login=username).first()
         if user and user.password == password:  # Directly compare the plain text password
+            if int(user['status']) == 1:
+                flash('your account does not exist!', 'warning')
+                return render_template('front/login.html')
             login_user(user)
             return redirect(url_for('home'))
         else:
