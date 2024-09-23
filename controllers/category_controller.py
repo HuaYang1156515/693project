@@ -23,8 +23,8 @@ def edit_category(id):
     category = category_service.get_category_by_id(id)
     if request.method == 'POST':
         name = request.form['name']
-        status = request.form['status']
-        category_service.update_category(id,name,status)
+       
+        category_service.update_category(id,name)
         flash("edit category successful")
         return redirect(url_for('category.category_management'))
     return render_template("admin/category/edit_category.html",category=category)

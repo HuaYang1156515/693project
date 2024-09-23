@@ -10,10 +10,9 @@ def create_category(name):
     DbText.db_execute(sql)
     return True
 
-def update_category(category_id, name=None, status=None):
+def update_category(category_id, name=None):
     sql =f"""UPDATE categories SET 
-    name = '{name}',
-    status = '{status}' WHERE id = '{category_id}';"""
+    name = '{name}' WHERE id = '{category_id}';"""
     DbText.db_execute(sql)
     return True
 

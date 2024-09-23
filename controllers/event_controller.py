@@ -73,6 +73,7 @@ def event_detail(id):
 
 
 @event_bp.route('/create_event', methods=['GET','POST'])
+@login_required
 def create_event():
     categories = event_service.get_categories()
     if request.method == 'POST':
@@ -98,6 +99,7 @@ def create_event():
 
 
 @event_bp.route('/edit_event/<int:id>', methods=['GET','POST'])
+@login_required
 def edit_event(id):
     categories = event_service.get_categories()
     event = event_service.get_event_by_id(id)
