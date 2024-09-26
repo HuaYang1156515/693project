@@ -72,8 +72,8 @@ def event_management():
     per_page = 10  # 每页显示10条记录
 
     # 构建查询语句
-    event_sql = "SELECT * FROM events"
-    total_sql = "SELECT COUNT(*) AS total_count FROM events"
+    event_sql = "SELECT * FROM events where status = 0"
+    total_sql = "SELECT COUNT(*) AS total_count FROM events where status = 0"
 
     # 使用分页函数获取数据和分页信息
     events, pagination = admin_service.paginate_results(total_sql, event_sql, page, per_page)
