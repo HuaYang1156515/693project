@@ -54,7 +54,7 @@ JOIN
     favorites f ON e.id = f.event_id
 WHERE 
     e.author_id != {user_id}
-    AND f.user_id = {user_id}
+    AND f.user_id = {user_id} and e.status = 0
 ORDER BY 
     e.id DESC
 LIMIT 12;"""
