@@ -67,9 +67,22 @@ def calendar_events():
 
 @admin_bp.route('/event_management', methods=['GET'])
 def event_management():
-    events = admin_service.get_all_events()
+    # 获取当前页码
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # 每页显示10条记录
+
+    # 构建查询语句
+    event_sql = "SELECT * FROM events"
+    total_sql = "SELECT COUNT(*) AS total_count FROM events"
+
+    # 使用分页函数获取数据和分页信息
+    events, pagination = admin_service.paginate_results(total_sql, event_sql, page, per_page)
+
+    # 获取所有分类
     categories = admin_service.get_all_categories()
-    return render_template("admin/event/event_list.html",events=events,categories=categories)
+
+    # 渲染模板，并将分页数据传递给模板
+    return render_template("admin/event/event_list.html", events=events, categories=categories, pagination=pagination)
 
 
 @admin_bp.route('/cancel_event', methods=['POST'])
@@ -82,34 +95,48 @@ def cancel_event():
     return jsonify({"message": "Event status updated successfully"}), 200
 
 
-@admin_bp.route('/filter_events', methods=(['GET','POST']))
+@admin_bp.route('/filter_events', methods=['GET', 'POST'])
 def filter_events():
-    if request.method == 'POST':
-        search = request.form['search']
-        filter_type = request.form['filter']
-        category = request.form['category']
+    page = request.args.get('page', 1, type=int)  # 获取当前页码
+    per_page = 10  # 每页显示的记录数
+    
+    search = request.form.get('search')
+    filter_type = request.form.get('filter')
+    category = request.form.get('category')
 
-        query = "SELECT * FROM events WHERE 1=1"
-        params = []
+    # 构建查询语句
+    query = "SELECT * FROM events WHERE 1=1 and status = 0 "
+    
+    if search:
+        if filter_type == 'location':
+            query += f" AND location LIKE '%{search}%'"
+        elif filter_type == 'date':
+            query += f" AND date LIKE '%{search}%'"
+    
+    if category:
+        query += f" AND category_id = '{category}'"
 
-        if search:
-            if filter_type == 'location':
-                query += f""" AND location LIKE '%{search}%';"""
-            elif filter_type == 'date':
-                query += f"""  AND date LIKE '%{search}%';""" 
+    # 获取总记录数的SQL
+    total_sql = "SELECT COUNT(*) AS total_count FROM events WHERE 1=1 and status = 0 "
+    if search:
+        if filter_type == 'location':
+            total_sql += f" AND location LIKE '%{search}%'"
+        elif filter_type == 'date':
+            total_sql += f" AND date LIKE '%{search}%'"
+    
+    if category:
+        total_sql += f" AND category_id = '{category}'"
+    
+    # 调用分页函数
+    events, pagination = admin_service.paginate_results(total_sql, query, page, per_page)
+    
+    categories = admin_service.get_all_categories()
+    
+    return render_template('admin/event/event_list.html', 
+                           events=events, 
+                           categories=categories, 
+                           pagination=pagination)
 
-        if category:
-            query += f"""  AND category_id = '{category}';""" 
-                    
-
-        if not search and not category:
-            query = "SELECT * FROM events;"
-        
-        events = admin_service.filter_events(query)
-        
-        categories = admin_service.get_all_categories()
-        return render_template('admin/event/event_list.html', events=events,categories=categories)
-    return redirect(url_for('admin.event_management'))
 
 @admin_bp.route('/event_detail/<int:id>', methods=(['GET','POST']))
 def event_detail(id):

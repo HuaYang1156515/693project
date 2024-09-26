@@ -95,3 +95,50 @@ WHERE
     id = {id};"""
     DbText.db_execute(sql)
     return True
+
+
+
+def paginate_results(total_sql, sql, page, per_page):
+    # 查询总记录数
+    total_items = query_total_items(total_sql)
+    
+    # 查询分页数据
+    items = query_items(page, per_page, sql)
+    
+    # 创建分页信息
+    pagination = paginate(page, per_page, total_items)
+    
+    return items, pagination
+
+# 分页函数
+def paginate(page, per_page, total_items):
+    num_pages = (total_items + per_page - 1) // per_page
+    has_prev = page > 1
+    has_next = page < num_pages
+    return {
+        'page': page,
+        'per_page': per_page,
+        'total_items': total_items,
+        'num_pages': num_pages,
+        'has_prev': has_prev,
+        'has_next': has_next,
+    }
+
+# 查询函数
+def query_total_items(sql):
+    # 查询总记录数
+    result = DbText.query_one(sql)
+    total_items = result['total_count'] if result else 0
+    return total_items
+
+def query_items(page, per_page, item_sql):
+    # 计算起始位置
+    offset = (page - 1) * per_page
+    
+    # 附加分页语句
+    item_sql = item_sql + f" LIMIT {offset}, {per_page}"
+    
+    # 执行分页查询
+    items = DbText.query_all(item_sql)
+    
+    return items

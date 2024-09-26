@@ -59,7 +59,7 @@
               <a href="{{ url_for('admin.event_detail',id=event.id) }}" class="btn btn-outline-dark text-capitalize"
                 target="_blank">View</a> |
               <a href="#" class="btn btn-outline-dark text-capitalize" id="cancel-event" data-event-id="{{ event.id }}">
-                Offline
+                Delete
               </a> | <a href="{{ url_for('admin.edit_event',id=event.id) }}"
                 class="btn btn-outline-dark text-capitalize" id="cancel-event" data-event-id="{{ event.id }}">
                 Edit
@@ -73,7 +73,34 @@
       <p>No events found.</p>
       {% endif %}
     </div>
-
+    <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-start">
+          {% if pagination.has_prev %}
+          <li class="page-item">
+            <a class="page-link"
+              href="{{ url_for('admin.filter_events', page=pagination.page-1, category=request.args.get('category'), search=request.args.get('search')) }}">Previous</a>
+          </li>
+          {% endif %}
+    
+          {% for page_num in range(1, pagination.num_pages + 1) %}
+          <li class="page-item {% if pagination.page == page_num %}active{% endif %}">
+            <a class="page-link"
+              href="{{ url_for('admin.filter_events', page=page_num, category=request.args.get('category'), search=request.args.get('search')) }}">{{ page_num }}</a>
+          </li>
+          {% endfor %}
+    
+          {% if pagination.has_next %}
+          <li class="page-item">
+            <a class="page-link"
+              href="{{ url_for('admin.filter_events', page=pagination.page+1, category=request.args.get('category'), search=request.args.get('search')) }}">Next</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    
+ 
 
   </div>
 </section>
@@ -91,6 +118,7 @@
         data: JSON.stringify({ "event_id": eventId, "status": 1 }),  // 发送事件 ID 和状态
         success: function (response) {
           alert('Event status updated successfully!');
+          location.reload(); 
           // 你可以根据需要更新页面内容，或进行其他操作
         },
         error: function (xhr, status, error) {

@@ -18,6 +18,6 @@ INSERT INTO events (name, description, location, date, status, created_by, categ
 
 
 
-ALTER TABLE `community_event_planner`.`events` 
+ALTER TABLE `events` 
 ADD COLUMN `img` VARCHAR(200) NULL AFTER `category_id`,
 ADD COLUMN `intro` VARCHAR(200) NULL AFTER `img`;

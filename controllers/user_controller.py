@@ -66,8 +66,27 @@ def remove_user(user_id):
     return jsonify({"error": "User not found"}), 404
 
 
-@user_bp.route('/users_management', methods=['GET','POST'])
+@user_bp.route('/users_management', methods=['GET', 'POST'])
 def users_management():
-    users = user_service.get_all_users()
-    return render_template("admin/users/users_list.html",users=users)
+    # 获取当前页码，默认为第一页
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # 每页显示10条记录
+
+    # 获取搜索关键词
+    search = request.form.get('search') if request.method == 'POST' else request.args.get('search', '')
+
+    # 构建查询语句
+    base_sql = "SELECT * FROM users WHERE 1=1"
+    total_sql = "SELECT COUNT(*) AS total_count FROM users WHERE 1=1"
+
+    # 如果存在搜索条件，添加到 SQL 查询中
+    if search:
+        base_sql += f" AND name LIKE '%{search}%'"
+        total_sql += f" AND name LIKE '%{search}%'"
+
+    # 使用分页函数获取用户数据和分页信息
+    users, pagination = user_service.paginate_results(total_sql, base_sql, page, per_page)
+
+    return render_template("admin/users/users_list.html", users=users, pagination=pagination, search=search)
+
 
