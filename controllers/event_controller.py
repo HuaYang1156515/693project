@@ -41,7 +41,7 @@ LEFT JOIN
 LEFT JOIN 
     favorites f ON e.id = f.event_id AND f.user_id = {user_id}  -- 加入判断是否在favorite表中
 WHERE 
-    1=1
+    1=1 and e.status = 0
     """
     total_sql = f"SELECT COUNT(*) AS total_count FROM ({base_query}) AS total"
 
@@ -165,7 +165,7 @@ def favorite_event():
     JOIN 
         favorites f ON e.id = f.event_id AND f.user_id = {user_id}
     WHERE 
-        e.author_id != {user_id}
+        e.author_id != {user_id} and e.status = 0
     """
 
     # 构建计算总记录数的查询
@@ -268,7 +268,7 @@ def my_event():
     FROM 
         events e
     WHERE 
-        e.author_id = {user_id}
+        e.author_id = {user_id} and e.status = 0
     """
 
     # 构建计算总记录数的查询

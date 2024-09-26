@@ -18,7 +18,7 @@ LEFT JOIN
 LEFT JOIN 
     favorites f ON e.id = f.event_id AND f.user_id = '{user_id}'
 WHERE 
-    e.end_date > NOW()
+    e.end_date > NOW() and e.status = 0
 ORDER BY 
     e.id DESC
 LIMIT 12;
