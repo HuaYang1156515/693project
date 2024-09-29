@@ -111,8 +111,8 @@ def profile():
 
         app_service.update_user(current_user.id,name,password,role,status,description,image_name)
         flash("update user successfule")
-        return redirect(url_for('user.users_management'))
-    return render_template("admin/users/edit_user.html",user=user)
+        return redirect(url_for('home'))
+    return render_template("front/profile.html",user=user)
 
 @app.route('/event_dashboard')
 def event_dashboard():

@@ -72,7 +72,16 @@
                
               </ul>
             </li>
-
+            <li class="nav-item dropdown">
+              <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="courses"
+                  data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+              <ul class="dropdown-menu" aria-labelledby="courses">
+                  <li><a href="{{ url_for('category.category_management') }}"
+                          class="dropdown-item">Category Management</a></li>
+                  <li><a href="{{ url_for('category.create_category') }}" class="dropdown-item">Create
+                          Category </a></li>
+              </ul>
+          </li>
             <li class="nav-item">
               <a href="{{url_for('contact')}}" class="nav-link mx-2">contact</a>
             </li>
