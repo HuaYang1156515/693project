@@ -63,14 +63,15 @@ ON
     result = DbText.query_all(sql)
     return result
 
-def get_event_by_id(event_id):
+def get_event_by_id(event_id,user_id):
     sql = f"""SELECT 
     e.*, 
-    er.status AS registration_status
+    COALESCE(er.status, 1) AS registration_status
 FROM 
     events e
 LEFT JOIN 
     event_registrations er ON e.id = er.event_id 
+    AND er.user_id = '{user_id}'
 WHERE 
     e.id = '{event_id}' 
     AND e.status = 0;"""

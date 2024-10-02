@@ -68,7 +68,7 @@ WHERE
 
 @event_bp.route('/event_detail/<int:id>', methods=['GET'])
 def event_detail(id):
-    event = event_service.get_event_by_id(id)
+    event = event_service.get_event_by_id(id,current_user.id)
     return render_template("front/event/event_detail.html",event = event)
 
 

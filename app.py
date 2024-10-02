@@ -71,8 +71,7 @@ def register():
         user = User(name=username, login=username, role=role)
         user.password = password  # Directly store the plain text password for now
         user.pic = setting.default_user_image
-        db.session.add(user)
-        db.session.commit()
+        app_service.create_user(username, username, password, role, 0, 'no description', setting.default_user_image)
         flash('Registration successful! Please login.')
         return redirect(url_for('login'))
     return render_template('front/register.html')

@@ -73,3 +73,9 @@ def update_user(user_id, name,  password, role, status,description,pic):
     role = '{role}', status = '{status}',pic = '{pic}', description = '{description}' WHERE id = '{user_id}';"""
     DbText.db_execute(sql)
     return True
+
+
+def create_user(name, login, password, role, status, description, image_name):
+    sql = f"""insert into users (name,login,password,role,status,pic,description) values('{name}','{login}','{password}','{role}','{status}','{image_name}','{description}')"""
+    DbText.db_execute(sql)
+    return True
