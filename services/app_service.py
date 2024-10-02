@@ -33,7 +33,7 @@ def get_my_events(user_id):
 FROM 
     events e
 LEFT JOIN 
-    event_registrations er ON e.id = er.event_id AND er.user_id = 1
+    event_registrations er ON e.id = er.event_id AND er.user_id = '{user_id}'
 WHERE 
     e.author_id != '{user_id}' 
     AND e.status = 0
@@ -53,8 +53,8 @@ FROM
 JOIN 
     favorites f ON e.id = f.event_id
 WHERE 
-    e.author_id != {user_id}
-    AND f.user_id = {user_id} and e.status = 0
+    e.author_id != '{user_id}'
+    AND f.user_id = '{user_id}' and e.status = 0
 ORDER BY 
     e.id DESC
 LIMIT 12;"""

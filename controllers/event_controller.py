@@ -26,8 +26,8 @@ def event_management():
     SELECT 
     e.*,
     CASE 
-        WHEN e.author_id = {user_id} THEN 1
-        WHEN er.user_id = {user_id} THEN 2
+        WHEN e.author_id = '{user_id}' THEN 1
+        WHEN er.user_id = '{user_id}' THEN 2
         ELSE 0
     END AS if_my,
     CASE 
@@ -37,13 +37,13 @@ def event_management():
 FROM 
     events e
 LEFT JOIN 
-    event_registrations er ON e.id = er.event_id AND er.user_id = {user_id}
+    event_registrations er ON e.id = er.event_id AND er.user_id = '{user_id}'
 LEFT JOIN 
-    favorites f ON e.id = f.event_id AND f.user_id = {user_id}  -- 加入判断是否在favorite表中
+    favorites f ON e.id = f.event_id AND f.user_id = '{user_id}'  -- 加入判断是否在favorite表中
 WHERE 
     1=1 and e.status = 0
     """
-    total_sql = f"SELECT COUNT(*) AS total_count FROM ({base_query}) AS total"
+    total_sql = f"""SELECT COUNT(*) AS total_count FROM ({base_query}) AS total"""
 
     # 添加搜索和过滤条件
     if search:
@@ -163,13 +163,13 @@ def favorite_event():
     FROM 
         events e
     JOIN 
-        favorites f ON e.id = f.event_id AND f.user_id = {user_id}
+        favorites f ON e.id = f.event_id AND f.user_id = '{user_id}'
     WHERE 
-        e.author_id != {user_id} and e.status = 0
+        e.author_id != '{user_id}' and e.status = 0
     """
 
     # 构建计算总记录数的查询
-    total_sql = f"SELECT COUNT(*) AS total_count FROM ({base_query}) AS total"
+    total_sql = f"""SELECT COUNT(*) AS total_count FROM ({base_query}) AS total"""
 
     # 添加搜索和过滤条件
     if search:
@@ -179,7 +179,7 @@ def favorite_event():
             base_query += f" AND e.date LIKE '%{search}%'"
 
     if category:
-        base_query += f" AND e.category_id = {category}"
+        base_query += f""" AND e.category_id = '{category}'"""
 
     # 添加排序条件
     base_query += " ORDER BY e.id DESC"
@@ -268,11 +268,11 @@ def my_event():
     FROM 
         events e
     WHERE 
-        e.author_id = {user_id} and e.status = 0
+        e.author_id = '{user_id}' and e.status = 0
     """
 
     # 构建计算总记录数的查询
-    total_sql = f"SELECT COUNT(*) AS total_count FROM ({base_query}) AS total"
+    total_sql = f"""SELECT COUNT(*) AS total_count FROM ({base_query}) AS total"""
 
     # 添加搜索和过滤条件
     if search:
@@ -282,7 +282,7 @@ def my_event():
             base_query += f" AND e.date LIKE '%{search}%'"
 
     if category:
-        base_query += f" AND e.category_id = {category}"
+        base_query += f""" AND e.category_id = '{category}'"""
 
     # 添加排序条件
     base_query += " ORDER BY e.id DESC"
