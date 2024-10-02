@@ -19,7 +19,7 @@ def home():
         flash('You are not authorized to view this page.')
         return redirect(url_for('home'))
     
-    return render_template('admin/dashboard.html')
+    return redirect(url_for('event_management'))
 
 @admin_bp.route('/admin/<int:admin_id>', methods=['GET'])
 def get_admin(admin_id):

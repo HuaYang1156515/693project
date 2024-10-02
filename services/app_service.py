@@ -32,7 +32,7 @@ def get_my_events(user_id):
     er.status AS registration_status
 FROM 
     events e
-LEFT JOIN 
+JOIN 
     event_registrations er ON e.id = er.event_id AND er.user_id = '{user_id}'
 WHERE 
     e.author_id != '{user_id}' 
