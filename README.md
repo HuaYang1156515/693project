@@ -28,40 +28,47 @@ The project follows the following directory structure:
       - hashing.py
       - validation.py
   - config/
+      - _init_.py 
       - connect.py
       - setting.py
   - controllers/
-      - guest_controller.py
+      - category_controller.py
       - user_controller.py
       - admin_controller.py
+      - event_controller.py
   - models/
-      - user.py
-      - event.py
-      - booking.py
-      - category.py
+      - user_model.py
+      - event_registration_model.py
+      - event_model.py
+      - favorite_model.py
+      - category_model.py      
   - services/
       - _init_.py
       - user_service.py
       - event_service.py
       - admin_service.py
+      - app_service.py
+      - category_service.py
+      - DbText.py
   - static/
       - css/
       - js/
       - images/
   - templates/
-      - base.html
-      - home.html
-      - login.html
-      - register.html
-      - event_list.html
-      - event_detail.html
-      - create_event.html
-      - edit_event.html
-      - user_profile.html
-      - admin_dashboard.html
-  - tests/
-      - test_user.py
-      - test_event.py
+      - admin
+        - admin_dashboard.html
+        - base.html
+        - dashboard.html
+        - /category
+        - /event
+        - users
+      - front
+        - base.html
+        - home.html
+        - profile.html
+        - login.html
+        - /event
+        - /help
   - .gitignore
   - app.py
   - config.py

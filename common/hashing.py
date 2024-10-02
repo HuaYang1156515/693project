@@ -1,4 +1,4 @@
-"""from flask_hashing import Hashing
+from flask_hashing import Hashing
 from config import setting
 
 hashing = Hashing()
@@ -14,4 +14,3 @@ def hash_password(password):
 def check_password(password, hashed_password):
      
     return hashing.check_value(password, hashed_password, setting.salt)
-"""
