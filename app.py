@@ -2,7 +2,6 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from config import setting
-from common import hashing
 from services import app_service
 app = Flask(__name__)
 app.config.from_object(setting.Config)
@@ -36,7 +35,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(login=username).first()
-        if user and hashing.check_password(user['password'],password):  # Directly compare the plain text password
+        if user and user.password == password:  # Directly compare the plain text password
             if int(user.status) == 1:
                 flash('your account does not exist!', 'warning')
                 return render_template('front/login.html')
@@ -70,7 +69,7 @@ def register():
             return redirect(url_for('register'))
 
         user = User(name=username, login=username, role=role)
-        user.password = hashing.hash_password(password)  # Directly store the plain text password for now
+        user.password = password  # Directly store the plain text password for now
         user.pic = setting.default_user_image
         db.session.add(user)
         db.session.commit()
