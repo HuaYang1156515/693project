@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify,render_template,flash,redirect,url_for
 from services import user_service
 from config import setting
+from common import hashing
 
 
 user_bp = Blueprint('user', __name__)
@@ -27,7 +28,7 @@ def create_user():
             image_name = '/static/images/user/' + pic.filename
         else:
             image_name = setting.default_user_image
-        user_service.create_user(name, name, password, role, status, description, image_name)
+        user_service.create_user(name, name, hashing.hash_password(password), role, status, description, image_name)
         flash("User inserted successfully")
         return redirect(url_for('user.users_management'))  # 重定向到用户管理页面
 
