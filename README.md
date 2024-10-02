@@ -5,7 +5,6 @@ The project focuses on developing a web-based application designed to promote co
 
 ## Features
 - A web application for managing community events, with roles for admins, users, and guests, each with specific access permissions.
-- Applied hashing and vaildation.
 - Event management with dynamic templates.
 
 ## Project Structure
@@ -19,14 +18,12 @@ The project follows the following directory structure:
 - **/services:** Modules for various services, including user, workshop, and payment services.
 - **/controllers:** Contains controllers for different functionalities like authentication and managing different user roles.
 - **/tests:** Unit tests for different components of the application.
-- **/common:** Common functionalities shared across the application, such as hashing functions.
+- **/common:** Common functionalities shared across the application.
 - **requirements.txt:** Lists the required Python packages.
 - **README.md:** This file, providing an overview of the project.
 
 - community_event_planner/
-  - common/
-      - hashing.py
-      - validation.py
+   
   - config/
       - _init_.py 
       - connect.py
