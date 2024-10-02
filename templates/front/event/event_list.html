@@ -63,7 +63,7 @@
               <td>{{ event.date }}</td>
               <td>{{ event.end_date }}</td>
               <td>{{ event.location }}</td>
-              <td>{{ event.if_my }}</td>
+              <td>{% if event.if_my == 2 %} My joined event {% elif event.if_my == 1%} My created Event {% elif event.if_my == 0%}Normal{%endif%}</td>
               <td>
                 <a href="{{ url_for('event.event_detail', id=event.id) }}" class="btn btn-outline-dark text-capitalize"
                   target="_blank">View</a>  
