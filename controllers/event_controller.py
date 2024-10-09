@@ -102,7 +102,7 @@ def create_event():
 @login_required
 def edit_event(id):
     categories = event_service.get_categories()
-    event = event_service.get_event_by_id(id)
+    event = event_service.get_event_by_id(id,current_user.id)
     if request.method == 'POST':
         name = request.form['name']
         description=request.form['description']
