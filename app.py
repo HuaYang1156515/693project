@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from config import setting
 from services import app_service
+import re
 app = Flask(__name__)
 app.config.from_object(setting.Config)
 
@@ -34,6 +35,9 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        if not username or not password:
+            flash('Please fill out the form!','warning')
+            return render_template('front/login.html')
         user = User.query.filter_by(login=username).first()
         if user and user.password == password:  # Directly compare the plain text password
             if int(user.status) == 1:
@@ -58,22 +62,28 @@ def register():
         password = request.form['password']
         confirm_password = request.form['confirm_password']
         role = request.form['role']  # Handle role from dropdown
-        
-        if password != confirm_password:
-            flash('Passwords do not match.')
-            return redirect(url_for('register'))
-        
         existing_user = User.query.filter_by(login=username).first()
         if existing_user:
             flash('Username already exists')
             return redirect(url_for('register'))
+        if password != confirm_password:
+            flash('Passwords do not match.')
+            return redirect(url_for('register'))
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            flash('Username must contain only characters and numbers!','warning')
+        elif not re.match(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$", password):
+            flash('password must contain only characters and numbers! Minimum length is 8','warning')
+        elif not username or not password:
+            flash('Please fill out the form!','warning')
 
-        user = User(name=username, login=username, role=role)
-        user.password = password  # Directly store the plain text password for now
-        user.pic = setting.default_user_image
-        app_service.create_user(username, username, password, role, 0, 'no description', setting.default_user_image)
-        flash('Registration successful! Please login.')
-        return redirect(url_for('login'))
+       
+        else:
+            user = User(name=username, login=username, role=role)
+            user.password = password  # Directly store the plain text password for now
+            user.pic = setting.default_user_image
+            app_service.create_user(username, username, password, role, 0, 'no description', setting.default_user_image)
+            flash('Registration successful! Please login.')
+            return redirect(url_for('login'))
     return render_template('front/register.html')
 
 @app.route('/')
